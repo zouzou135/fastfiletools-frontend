@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    /* Base Options */
+    "target": "es2020" /* Specify ECMAScript target version */,
+    "module": "esnext" /* Specify module code generation */,
+    "esModuleInterop": true /* Allow default imports from modules with no default export */,
+    "forceConsistentCasingInFileNames": true /* Ensure consistent file names */,
+    "strict": true /* Enable all strict type-checking options */,
+    "skipLibCheck": true /* Skip type checking of declaration files */,
+
+    /* Module Resolution */
+    "moduleResolution": "node" /* Strategy for resolving modules */,
+    "resolveJsonModule": true /* Include modules imported from .json files */,
+
+    /* React/JSX Configuration */
+    "jsx": "react-jsx" /* Crucial: Tell TypeScript to use the modern JSX transform */
+  },
+  "include": ["src/**/*"] /* Tell TypeScript which files to include */,
+  "exclude": ["node_modules"] /* Tell TypeScript which files to exclude */
+}
