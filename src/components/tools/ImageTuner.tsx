@@ -1,4 +1,4 @@
-import { Download, ImageIcon, Settings } from "lucide-react";
+import { Download, Settings } from "lucide-react";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { useState } from "react";
 import { BaseFileResult } from "../../types/types";
@@ -21,7 +21,7 @@ const ImageTuner: React.FC = () => {
     }
   };
 
-  const enhanceImage = async () => {
+  const tuneImage = async () => {
     if (!selectedFile) return;
 
     setProcessing(true);
@@ -30,7 +30,7 @@ const ImageTuner: React.FC = () => {
 
       setResult(response.data);
     } catch (error) {
-      console.error("Enhancement failed:", error);
+      console.error("Tuning failed:", error);
     } finally {
       setProcessing(false);
     }
@@ -52,14 +52,14 @@ const ImageTuner: React.FC = () => {
           Drop your image here or click to browse
         </p>
         <p className="text-sm text-gray-400">
-          Enhance brightness, contrast, and saturation
+          Tune brightness, contrast, and saturation
         </p>
       </FileUploadZone>
 
       {selectedFile && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            <h3 className="font-semibold mb-4">Enhancement Settings</h3>
+            <h3 className="font-semibold mb-4">Tuning Settings</h3>
             <div className="space-y-4">
               {Object.entries(settings).map(([key, value]) => (
                 <div key={key}>
@@ -91,11 +91,11 @@ const ImageTuner: React.FC = () => {
                   Reset
                 </button>
                 <button
-                  onClick={enhanceImage}
+                  onClick={tuneImage}
                   disabled={processing}
                   className="flex-1 bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 disabled:bg-gray-300 transition-colors"
                 >
-                  {processing ? "Enhancing..." : "Enhance"}
+                  {processing ? "Tuning..." : "Tune"}
                 </button>
               </div>
             </div>
@@ -124,7 +124,7 @@ const ImageTuner: React.FC = () => {
       {result && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <h3 className="text-green-800 font-semibold mb-2">
-            Enhancement Complete!
+            Tunining Complete!
           </h3>
           <a
             href={result.download_url}
@@ -132,7 +132,7 @@ const ImageTuner: React.FC = () => {
             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
           >
             <Download className="inline mr-2" size={16} />
-            Download Enhanced Image
+            Download Tuned Image
           </a>
         </div>
       )}

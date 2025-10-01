@@ -1,35 +1,9 @@
-import React, { useState, useRef, DragEvent } from "react";
-import {
-  Upload,
-  Download,
-  Image as ImageIcon,
-  FileText,
-  Scissors,
-  Merge,
-  Zap,
-  Settings,
-} from "lucide-react";
-import {
-  FileUploadZoneProps,
-  MockApiData,
-  ProgressBarProps,
-  SplitPdfResult,
-} from "../../types/types";
+import { useState } from "react";
+import { FileText, Scissors, Merge, Zap, Settings } from "lucide-react";
 import ImageCompressor from "../tools/ImageCompressor";
 import ImageToPdfConverter from "../tools/ImageToPdfConverter";
 import PdfSplitter from "../tools/PdfSplitter";
 import PdfMerger from "../tools/PdfMerger";
-import {
-  AppShell,
-  Burger,
-  Group,
-  Image,
-  NavLink,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import fastFileToolsLogo from "../assets/fastFileToolsLogo.png";
 import ImageTuner from "../tools/ImageTuner";
 import Layout from "../utilities/Layout";
 

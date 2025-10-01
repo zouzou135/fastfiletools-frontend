@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { FileUploadZoneProps } from "../../types/types";
 import { Upload } from "lucide-react";
-import { Alert } from "@mantine/core";
 
 const FileUploadZone: React.FC<FileUploadZoneProps> = ({
   onFilesSelected,
