@@ -1,4 +1,5 @@
 import axios from "axios";
+import { notifications } from "@mantine/notifications";
 
 const API_BASE_URL = process.env.REACT_APP_BASE_URL + "/api";
 
@@ -8,6 +9,34 @@ const api = axios.create({
     "Content-Type": "multipart/form-data",
   },
 });
+
+// Global error handler
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 422) {
+      notifications.show({
+        title: "Validation error",
+        message: error.response.data.message || "Invalid request.",
+        color: "red",
+      });
+    } else if (error.response?.status === 500) {
+      notifications.show({
+        title: "Server error",
+        message: "Something went wrong on the server. Please try again later.",
+        color: "red",
+      });
+    } else {
+      notifications.show({
+        title: "Network error",
+        message: "Could not connect to the server. Check your connection.",
+        color: "red",
+      });
+    }
+
+    return Promise.reject(error); // still reject so caller can handle if needed
+  }
+);
 
 export const imageService = {
   compress: (file: File, quality = 80) => {

@@ -126,10 +126,14 @@ const ImageTuner: React.FC = () => {
           <h3 className="text-green-800 font-semibold mb-2">
             Enhancement Complete!
           </h3>
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+          <a
+            href={result.download_url}
+            download={result.filename}
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+          >
             <Download className="inline mr-2" size={16} />
             Download Enhanced Image
-          </button>
+          </a>
         </div>
       )}
     </div>

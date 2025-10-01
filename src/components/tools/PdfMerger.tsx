@@ -146,10 +146,14 @@ const PdfMerger = () => {
           <p className="text-green-700 text-sm mb-3">
             Combined {selectedFiles.length} PDFs into one document
           </p>
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+          <a
+            href={result.download_url}
+            download={result.filename}
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+          >
             <Download className="inline mr-2" size={16} />
             Download Merged PDF
-          </button>
+          </a>
         </div>
       )}
     </div>

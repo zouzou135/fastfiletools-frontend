@@ -23,15 +23,8 @@ const PdfSplitter = () => {
     setProcessing(true);
     try {
       const response = await pdfService.split(selectedFile, pageRange);
-      setResult({
-        ...response.data,
-        split_pdfs: [
-          // { page: 1, filename: "page_1.pdf", url: "#" },
-          // { page: 3, filename: "page_3.pdf", url: "#" },
-          // { page: 5, filename: "page_5.pdf", url: "#" },
-        ],
-      });
-    } catch (error) {
+      setResult(response.data);
+    } catch (error: any) {
       console.error("Split failed:", error);
     } finally {
       setProcessing(false);
@@ -71,7 +64,19 @@ const PdfSplitter = () => {
             <input
               type="text"
               value={pageRange}
-              onChange={(e) => setPageRange(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                // Allow empty string (so user can clear input)
+                if (
+                  value === "" ||
+                  /^\s*\d+(\s*-\s*\d+)?(\s*,\s*\d+(\s*-\s*\d+)?)*\s*$/.test(
+                    value
+                  )
+                ) {
+                  setPageRange(value);
+                }
+              }}
               placeholder="e.g., 1,3,5-8,10"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
             />
@@ -102,10 +107,14 @@ const PdfSplitter = () => {
                 className="flex items-center justify-between bg-white p-3 rounded"
               >
                 <span className="text-sm">Page {pdf.page}</span>
-                <button className="bg-green-600 text-white px-3 py-1 text-sm rounded hover:bg-green-700 transition-colors">
+                <a
+                  href={pdf.download_url}
+                  download={pdf.filename}
+                  className="bg-green-600 text-white px-3 py-1 text-sm rounded hover:bg-green-700 transition-colors"
+                >
                   <Download className="inline mr-1" size={14} />
                   Download
-                </button>
+                </a>
               </div>
             ))}
           </div>
