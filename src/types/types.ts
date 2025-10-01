@@ -19,13 +19,31 @@ export interface ProgressBarProps {
   label: string;
 }
 
-export interface SplitPdfResult extends MockApiData {
-  split_pdfs: { page: number; filename: string; url: string }[];
-}
-
 export interface Tab {
   id: string;
   label: string;
   icon: React.ElementType;
   component: React.FC;
+}
+
+export interface BaseFileResult {
+  success: boolean;
+  filename: string;
+  download_url: string;
+  url?: string;
+  expires_at?: string;
+}
+
+export interface CompressedImageResult extends BaseFileResult {
+  original_size: number;
+  compressed_size: number;
+}
+
+export interface SplitPdfResult extends BaseFileResult {
+  page: number;
+}
+
+export interface SplitPdfResponse {
+  success: boolean;
+  split_pdfs: SplitPdfResult[];
 }

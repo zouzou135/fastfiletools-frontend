@@ -17,7 +17,6 @@ import {
 } from "../types/types";
 import ImageCompressor from "./tools/ImageCompressor";
 import ImageToPdfConverter from "./tools/ImageToPdfConverter";
-import ImageEnhancer from "./tools/ImageEnhancer";
 import PdfSplitter from "./tools/PdfSplitter";
 import PdfMerger from "./tools/PdfMerger";
 import {
@@ -31,6 +30,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import fastFileToolsLogo from "../assets/fastFileToolsLogo.png";
+import ImageTuner from "./tools/ImageTuner";
 
 const ImageToolsApp = () => {
   const [activeTab, setActiveTab] = useState("compress");
@@ -43,10 +43,10 @@ const ImageToolsApp = () => {
       component: ImageCompressor,
     },
     {
-      id: "enhance",
-      label: "Image Enhancer",
+      id: "tune",
+      label: "Image Tuner",
       icon: Settings,
-      component: ImageEnhancer,
+      component: ImageTuner,
     },
     {
       id: "img-to-pdf",

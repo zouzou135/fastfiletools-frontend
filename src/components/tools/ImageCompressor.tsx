@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { MockApiData } from "../../types/types";
+import { CompressedImageResult } from "../../types/types";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { Download, Zap } from "lucide-react";
 import ProgressBar from "../utilities/ProgressBar";
-import mockApiCall from "../utilities/mockApiCall";
+import { imageService } from "../../services/api";
 
 const ImageCompressor = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [quality, setQuality] = useState(80);
   const [processing, setProcessing] = useState(false);
-  const [result, setResult] = useState<MockApiData | null>(null);
+  const [result, setResult] = useState<CompressedImageResult | null>(null);
   const [progress, setProgress] = useState(0);
 
   const handleFileSelect = (files: File[]) => {
@@ -25,7 +25,6 @@ const ImageCompressor = () => {
     setProcessing(true);
     setProgress(0);
 
-    // Simulate progress
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 90) {
@@ -37,9 +36,9 @@ const ImageCompressor = () => {
     }, 200);
 
     try {
-      const response = await mockApiCall();
+      const response = await imageService.compress(selectedFile, quality);
       setProgress(100);
-      setResult(response.data);
+      setResult(response.data); // Make sure response.data matches MockApiData
     } catch (error) {
       console.error("Compression failed:", error);
     } finally {
@@ -113,10 +112,14 @@ const ImageCompressor = () => {
             ).toFixed(1)}
             %
           </p>
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+          <a
+            href={result.download_url}
+            download={result.filename}
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors inline-flex items-center"
+          >
             <Download className="inline mr-2" size={16} />
             Download Compressed Image
-          </button>
+          </a>
         </div>
       )}
     </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import mockApiCall from "../utilities/mockApiCall";
 import { MockApiData } from "../../types/types";
 
-const ImageEnhancer: React.FC = () => {
+const ImageTuner: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [settings, setSettings] = useState({
     brightness: 0,
@@ -43,7 +43,7 @@ const ImageEnhancer: React.FC = () => {
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
         <Settings className="text-purple-600" />
-        Image Enhancer
+        Image Tuner
       </h2>
 
       <FileUploadZone onFilesSelected={handleFileSelect} accept="image/*">
@@ -124,4 +124,4 @@ const ImageEnhancer: React.FC = () => {
   );
 };
 
-export default ImageEnhancer;
+export default ImageTuner;
