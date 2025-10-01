@@ -39,11 +39,11 @@ export interface CompressedImageResult extends BaseFileResult {
   compressed_size: number;
 }
 
-export interface SplitPdfResult extends BaseFileResult {
+export interface SplitPdfOB extends BaseFileResult {
   page: number;
 }
 
-export interface SplitPdfResponse {
+export interface SplitPdfResult {
   success: boolean;
-  split_pdfs: SplitPdfResult[];
+  split_pdfs: SplitPdfOB[];
 }

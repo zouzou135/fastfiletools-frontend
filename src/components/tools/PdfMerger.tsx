@@ -1,13 +1,13 @@
 import { Download, Merge } from "lucide-react";
 import FileUploadZone from "../utilities/FileUploadZone";
-import { MockApiData } from "../../types/types";
 import { useState } from "react";
-import mockApiCall from "../utilities/mockApiCall";
+import { BaseFileResult } from "../../types/types";
+import { pdfService } from "../../services/api";
 
 const PdfMerger = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [result, setResult] = useState<MockApiData | null>(null);
+  const [result, setResult] = useState<BaseFileResult | null>(null);
 
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles(files);
@@ -19,7 +19,7 @@ const PdfMerger = () => {
 
     setProcessing(true);
     try {
-      const response = await mockApiCall(3000);
+      const response = await pdfService.merge(selectedFiles);
       setResult(response.data);
     } catch (error) {
       console.error("Merge failed:", error);

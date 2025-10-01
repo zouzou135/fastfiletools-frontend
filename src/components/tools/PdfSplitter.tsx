@@ -1,8 +1,8 @@
 import { Download, Scissors } from "lucide-react";
 import { useState } from "react";
-import mockApiCall from "../utilities/mockApiCall";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { SplitPdfResult } from "../../types/types";
+import { pdfService } from "../../services/api";
 
 const PdfSplitter = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -22,13 +22,13 @@ const PdfSplitter = () => {
 
     setProcessing(true);
     try {
-      const response = await mockApiCall(2500);
+      const response = await pdfService.split(selectedFile, pageRange);
       setResult({
         ...response.data,
         split_pdfs: [
-          { page: 1, filename: "page_1.pdf", url: "#" },
-          { page: 3, filename: "page_3.pdf", url: "#" },
-          { page: 5, filename: "page_5.pdf", url: "#" },
+          // { page: 1, filename: "page_1.pdf", url: "#" },
+          // { page: 3, filename: "page_3.pdf", url: "#" },
+          // { page: 5, filename: "page_5.pdf", url: "#" },
         ],
       });
     } catch (error) {

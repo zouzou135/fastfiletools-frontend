@@ -1,13 +1,13 @@
 import { Download, FileText } from "lucide-react";
-import mockApiCall from "../utilities/mockApiCall";
 import { useState } from "react";
-import { MockApiData } from "../../types/types";
+import { BaseFileResult } from "../../types/types";
 import FileUploadZone from "../utilities/FileUploadZone";
+import { imageService } from "../../services/api";
 
 const ImageToPdfConverter: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [result, setResult] = useState<MockApiData | null>(null);
+  const [result, setResult] = useState<BaseFileResult | null>(null);
 
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles(files);
@@ -19,7 +19,8 @@ const ImageToPdfConverter: React.FC = () => {
 
     setProcessing(true);
     try {
-      const response = await mockApiCall(3000);
+      const response = await imageService.convertToPdf(selectedFiles);
+
       setResult(response.data);
     } catch (error) {
       console.error("Conversion failed:", error);

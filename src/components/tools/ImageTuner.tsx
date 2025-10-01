@@ -1,8 +1,8 @@
 import { Download, ImageIcon, Settings } from "lucide-react";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { useState } from "react";
-import mockApiCall from "../utilities/mockApiCall";
-import { MockApiData } from "../../types/types";
+import { BaseFileResult } from "../../types/types";
+import { imageService } from "../../services/api";
 
 const ImageTuner: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -12,7 +12,7 @@ const ImageTuner: React.FC = () => {
     saturation: 0,
   });
   const [processing, setProcessing] = useState(false);
-  const [result, setResult] = useState<MockApiData | null>(null);
+  const [result, setResult] = useState<BaseFileResult | null>(null);
 
   const handleFileSelect = (files: File[]) => {
     if (files.length > 0) {
@@ -26,7 +26,8 @@ const ImageTuner: React.FC = () => {
 
     setProcessing(true);
     try {
-      const response = await mockApiCall();
+      const response = await imageService.tune(selectedFile, settings);
+
       setResult(response.data);
     } catch (error) {
       console.error("Enhancement failed:", error);
@@ -103,7 +104,18 @@ const ImageTuner: React.FC = () => {
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-semibold mb-2">Preview</h3>
             <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-              <ImageIcon className="text-gray-400" size={48} />
+              <img
+                src={URL.createObjectURL(selectedFile)}
+                alt="Selected preview"
+                className="object-contain w-full h-full"
+                style={{
+                  filter: `
+            brightness(${100 + settings.brightness}%)
+            contrast(${100 + settings.contrast}%)
+            saturate(${100 + settings.saturation}%)
+          `,
+                }}
+              />
             </div>
           </div>
         </div>
