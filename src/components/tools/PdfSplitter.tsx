@@ -70,9 +70,7 @@ const PdfSplitter = () => {
                 // Allow empty string (so user can clear input)
                 if (
                   value === "" ||
-                  /^\s*\d+(\s*-\s*\d+)?(\s*,\s*\d+(\s*-\s*\d+)?)*\s*$/.test(
-                    value
-                  )
+                  /^\s*(\d+(-\d*)?)(\s*,\s*(\d+(-\d*)?))*\s*,?\s*$/.test(value)
                 ) {
                   setPageRange(value);
                 }
@@ -84,6 +82,17 @@ const PdfSplitter = () => {
               Specify individual pages (1,3,5) or ranges (5-8)
             </p>
           </div>
+
+          {selectedFile && (
+            <div className="flex justify-end">
+              <button
+                onClick={() => setSelectedFile(null)}
+                className="text-sm text-red-600 hover:text-red-800 underline"
+              >
+                Clear
+              </button>
+            </div>
+          )}
 
           <button
             onClick={splitPdf}
@@ -106,7 +115,9 @@ const PdfSplitter = () => {
                 key={index}
                 className="flex items-center justify-between bg-white p-3 rounded"
               >
-                <span className="text-sm">Page {pdf.page}</span>
+                <span className="text-sm">
+                  Page{pdf.range.includes("-") ? "s" : ""} {pdf.range}
+                </span>
                 <a
                   href={pdf.download_url}
                   download={pdf.filename}

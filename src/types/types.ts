@@ -40,7 +40,7 @@ export interface CompressedImageResult extends BaseFileResult {
 }
 
 export interface SplitPdfOB extends BaseFileResult {
-  page: number;
+  range: string;
 }
 
 export interface SplitPdfResult {

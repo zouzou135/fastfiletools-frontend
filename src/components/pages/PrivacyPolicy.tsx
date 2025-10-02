@@ -21,38 +21,20 @@ const PrivacyPolicy = () => {
           <p className="mb-4 text-gray-700">
             We do not require you to create an account or provide personal
             details to use our tools. Uploaded files are processed temporarily
-            and deleted automatically after expiration. We may collect basic
-            technical information (such as browser type or usage statistics) to
-            improve our service.
+            and deleted automatically after expiration. We do not associate
+            these files with any personal information, IP address, or device
+            data. If we begin collecting technical data in the future, we will
+            update this Privacy Policy to reflect those changes.
           </p>
 
           <h2 className="text-xl font-semibold mt-6 mb-2 text-gray-800">
             Cookies and Advertising
           </h2>
           <p className="mb-4 text-gray-700">
-            We use cookies and may allow third‑party vendors, including Google,
-            to serve ads on our site. Google's use of advertising cookies
-            enables it and its partners to serve ads based on your visit to
-            FastFileTools and other sites. You can opt out of personalized
-            advertising by visiting{" "}
-            <a
-              href="https://www.google.com/settings/ads"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              Google Ads Settings
-            </a>{" "}
-            or{" "}
-            <a
-              href="http://www.aboutads.info/choices/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              AboutAds
-            </a>
-            .
+            We do not currently use cookies or display ads on our site. If we
+            integrate Google AdSense or other advertising services in the
+            future, we will update this policy and display a cookie consent
+            banner where required by law.
           </p>
 
           <h2 className="text-xl font-semibold mt-6 mb-2 text-gray-800">

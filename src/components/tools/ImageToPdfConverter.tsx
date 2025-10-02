@@ -10,7 +10,7 @@ const ImageToPdfConverter: React.FC = () => {
   const [result, setResult] = useState<BaseFileResult | null>(null);
 
   const handleFileSelect = (files: File[]) => {
-    setSelectedFiles(files);
+    setSelectedFiles((prev) => [...prev, ...files]);
     setResult(null);
   };
 
@@ -80,6 +80,16 @@ const ImageToPdfConverter: React.FC = () => {
             ))}
           </div>
 
+          {selectedFiles.length > 0 && (
+            <div className="flex justify-end">
+              <button
+                onClick={() => setSelectedFiles([])}
+                className="text-sm text-red-600 hover:text-red-800 underline"
+              >
+                Clear All
+              </button>
+            </div>
+          )}
           <button
             onClick={convertToPdf}
             disabled={processing}

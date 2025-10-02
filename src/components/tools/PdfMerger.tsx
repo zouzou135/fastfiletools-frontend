@@ -10,7 +10,7 @@ const PdfMerger = () => {
   const [result, setResult] = useState<BaseFileResult | null>(null);
 
   const handleFileSelect = (files: File[]) => {
-    setSelectedFiles(files);
+    setSelectedFiles((prev) => [...prev, ...files]);
     setResult(null);
   };
 
@@ -103,7 +103,7 @@ const PdfMerger = () => {
                 </div>
                 <button
                   onClick={() => removeFile(index)}
-                  className="text-red-500 hover:text-red-700 text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="text-red-500 hover:text-red-700 text-sm"
                 >
                   Remove
                 </button>
@@ -117,6 +117,17 @@ const PdfMerger = () => {
               merged PDF will follow this order.
             </p>
           </div>
+
+          {selectedFiles.length > 0 && (
+            <div className="flex justify-end">
+              <button
+                onClick={() => setSelectedFiles([])}
+                className="text-sm text-red-600 hover:text-red-800 underline"
+              >
+                Clear All
+              </button>
+            </div>
+          )}
 
           <button
             onClick={mergePdfs}

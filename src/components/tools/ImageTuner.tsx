@@ -83,6 +83,19 @@ const ImageTuner: React.FC = () => {
                 </div>
               ))}
 
+              {selectedFile && (
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => {
+                      setSelectedFile(null);
+                      resetSettings();
+                    }}
+                    className="text-sm text-red-600 hover:text-red-800 underline"
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
               <div className="flex gap-2">
                 <button
                   onClick={resetSettings}

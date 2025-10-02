@@ -86,6 +86,17 @@ const ImageCompressor = () => {
           />
         </div>
 
+        {selectedFile && (
+          <div className="flex justify-end">
+            <button
+              onClick={() => setSelectedFile(null)}
+              className="text-sm text-red-600 hover:text-red-800 underline"
+            >
+              Clear
+            </button>
+          </div>
+        )}
+
         <button
           onClick={compressImage}
           disabled={!selectedFile || processing}
