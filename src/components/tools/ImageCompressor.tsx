@@ -4,6 +4,7 @@ import FileUploadZone from "../utilities/FileUploadZone";
 import { Download, Zap } from "lucide-react";
 import ProgressBar from "../utilities/ProgressBar";
 import { imageService } from "../../services/api";
+import ToolWrapper from "../pages/ToolWrapper";
 
 const ImageCompressor = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

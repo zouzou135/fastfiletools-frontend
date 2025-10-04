@@ -3,6 +3,7 @@ import FileUploadZone from "../utilities/FileUploadZone";
 import { useState } from "react";
 import { BaseFileResult } from "../../types/types";
 import { imageService } from "../../services/api";
+import ToolWrapper from "../pages/ToolWrapper";
 
 const ImageTuner: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

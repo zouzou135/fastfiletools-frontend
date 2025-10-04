@@ -3,6 +3,7 @@ import FileUploadZone from "../utilities/FileUploadZone";
 import { useState } from "react";
 import { BaseFileResult } from "../../types/types";
 import { pdfService } from "../../services/api";
+import ToolWrapper from "../pages/ToolWrapper";
 
 const PdfMerger = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);

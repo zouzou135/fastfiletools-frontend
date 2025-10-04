@@ -1,16 +1,47 @@
 import "./App.css";
-import ImageToolsApp from "./components/pages/ImageToolsApp";
+import ToolWrapper from "./components/pages/ToolWrapper";
 import AboutUs from "./components/pages/AboutUs";
 import PrivacyPolicy from "./components/pages/PrivacyPolicy";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ImageCompressor from "./components/tools/ImageCompressor";
+import ImageTuner from "./components/tools/ImageTuner";
+import ImageToPdfConverter from "./components/tools/ImageToPdfConverter";
+import PdfMerger from "./components/tools/PdfMerger";
+import PdfSplitter from "./components/tools/PdfSplitter";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Layout from "./components/utilities/Layout";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ImageToolsApp />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
+        {/* TOP-LEVEL WRAPPER: Layout (Header/Footer) */}
+        <Route element={<Layout />}>
+          {/* 1. TOOL WRAPPER (Handles ALL Tool-Related Paths) */}
+          {/* 1. ROOT PATH HANDLING: Render ToolWrapper at the root path */}
+          <Route path="/" element={<ToolWrapper />}>
+            {/* The index route of ToolWrapper immediately redirects from / to /compress-image */}
+            <Route index element={<Navigate to="compress-image" replace />} />
+
+            {/* The specific tool paths (Children of ToolWrapper) */}
+            <Route path="compress-image" element={<ImageCompressor />} />
+            <Route path="tune-image" element={<ImageTuner />} />
+            <Route path="img-to-pdf" element={<ImageToPdfConverter />} />
+            <Route path="merge-pdf" element={<PdfMerger />} />
+            <Route path="split-pdf" element={<PdfSplitter />} />
+          </Route>
+
+          {/* 2. STANDALONE PAGES (Also rendered inside the top-level Layout) */}
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+
+          {/* 3. Catch-all 404 Route */}
+          <Route path="*" element={<h1>404 Page Not Found</h1>} />
+        </Route>
       </Routes>
     </Router>
   );

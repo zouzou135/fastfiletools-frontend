@@ -3,6 +3,7 @@ import { useState } from "react";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { SplitPdfResult } from "../../types/types";
 import { pdfService } from "../../services/api";
+import ToolWrapper from "../pages/ToolWrapper";
 
 const PdfSplitter = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

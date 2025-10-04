@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BaseFileResult } from "../../types/types";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { imageService } from "../../services/api";
+import ToolWrapper from "../pages/ToolWrapper";
 
 const ImageToPdfConverter: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
