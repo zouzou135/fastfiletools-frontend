@@ -1,7 +1,9 @@
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
 
-const API_BASE_URL = import.meta.env.VITE_BASE_URL + "/api";
+const API_BASE_URL = import.meta.env.DEV
+  ? "/api" // 👈 FOR LOCAL DEV: Uses the RELATIVE path so Vite's proxy can intercept it.
+  : import.meta.env.VITE_BASE_URL + "/api"; // 👈 FOR DEPLOYMENT: Uses the full PROD URL.
 
 const api = axios.create({
   baseURL: API_BASE_URL,
