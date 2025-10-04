@@ -15,6 +15,9 @@
     /* React/JSX Configuration */
     "jsx": "react-jsx" /* Crucial: Tell TypeScript to use the modern JSX transform */
   },
-  "include": ["src/**/*"] /* Tell TypeScript which files to include */,
+  "include": [
+    "src/**/*",
+    "src/**/*.d.ts"
+  ] /* Tell TypeScript which files to include */,
   "exclude": ["node_modules"] /* Tell TypeScript which files to exclude */
 }

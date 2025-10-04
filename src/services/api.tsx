@@ -1,7 +1,7 @@
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
 
-const API_BASE_URL = process.env.REACT_APP_BASE_URL + "/api";
+const API_BASE_URL = import.meta.env.VITE_BASE_URL + "/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
