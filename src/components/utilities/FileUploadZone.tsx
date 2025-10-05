@@ -56,6 +56,12 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     onFilesSelected(files);
+
+    // CRITICAL FIX: Reset the input's value to an empty string.
+    // This allows the user to select the same file again later.
+    if (e.target) {
+      e.target.value = "";
+    }
   };
 
   const dropZoneClass = `border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 ${
