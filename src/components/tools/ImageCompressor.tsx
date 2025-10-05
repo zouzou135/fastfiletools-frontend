@@ -4,7 +4,7 @@ import FileUploadZone from "../utilities/FileUploadZone";
 import { Download, Zap } from "lucide-react";
 import ProgressBar from "../utilities/ProgressBar";
 import { imageService } from "../../services/api";
-import ToolWrapper from "../pages/ToolWrapper";
+import { formatBytes } from "../../helpers/helperfunctions";
 
 const ImageCompressor = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -90,7 +90,10 @@ const ImageCompressor = () => {
         {selectedFile && (
           <div className="flex justify-end">
             <button
-              onClick={() => setSelectedFile(null)}
+              onClick={() => {
+                setSelectedFile(null);
+                setResult(null);
+              }}
               className="text-sm text-red-600 hover:text-red-800 underline"
             >
               Clear
@@ -116,14 +119,29 @@ const ImageCompressor = () => {
           <h3 className="text-green-800 font-semibold mb-2">
             Compression Complete!
           </h3>
-          <p className="text-green-700 text-sm mb-3">
-            Size reduced by{" "}
-            {(
-              (1 - result.compressed_size / result.original_size) *
-              100
-            ).toFixed(1)}
-            %
-          </p>
+          {/* NEW: Display the size comparison */}
+          <div className="text-green-700 text-sm mb-3">
+            <p className="font-medium">
+              Original Size:{" "}
+              <span className="line-through">
+                {formatBytes(result.original_size)}
+              </span>
+            </p>
+            <p className="font-medium">
+              Compressed Size:{" "}
+              <strong>{formatBytes(result.compressed_size)}</strong>
+            </p>
+            <p className="mt-1">
+              Total Reduction:{" "}
+              <strong className="text-lg">
+                {(
+                  (1 - result.compressed_size / result.original_size) *
+                  100
+                ).toFixed(1)}
+                %
+              </strong>
+            </p>
+          </div>
           <a
             href={result.download_url}
             download={result.filename}

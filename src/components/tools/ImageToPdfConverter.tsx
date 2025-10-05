@@ -84,7 +84,10 @@ const ImageToPdfConverter: React.FC = () => {
           {selectedFiles.length > 0 && (
             <div className="flex justify-end">
               <button
-                onClick={() => setSelectedFiles([])}
+                onClick={() => {
+                  setSelectedFiles([]);
+                  setResult(null);
+                }}
                 className="text-sm text-red-600 hover:text-red-800 underline"
               >
                 Clear All

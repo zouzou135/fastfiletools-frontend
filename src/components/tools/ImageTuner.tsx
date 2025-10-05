@@ -90,6 +90,7 @@ const ImageTuner: React.FC = () => {
                     onClick={() => {
                       setSelectedFile(null);
                       resetSettings();
+                      setResult(null);
                     }}
                     className="text-sm text-red-600 hover:text-red-800 underline"
                   >

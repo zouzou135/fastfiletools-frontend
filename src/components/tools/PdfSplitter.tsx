@@ -87,7 +87,10 @@ const PdfSplitter = () => {
           {selectedFile && (
             <div className="flex justify-end">
               <button
-                onClick={() => setSelectedFile(null)}
+                onClick={() => {
+                  setSelectedFile(null);
+                  setResult(null);
+                }}
                 className="text-sm text-red-600 hover:text-red-800 underline"
               >
                 Clear

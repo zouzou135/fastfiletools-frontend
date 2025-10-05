@@ -9,18 +9,42 @@ const toolRoutes = [
     label: "Image Compressor",
     icon: Zap,
     path: "/compress-image",
+    description:
+      "Compress and optimize your JPEG, PNG, and GIF images instantly. Reduce file size without noticeable loss of quality for faster uploads and web performance.",
   },
-  { id: "tune", label: "Image Tuner", icon: Settings, path: "/tune-image" },
+  {
+    id: "tune",
+    label: "Image Tuner",
+    icon: Settings,
+    path: "/tune-image",
+    description:
+      "Edit and fine-tune your images with powerful tools. Easily crop, resize, and convert photos to different formats with precision and ease.",
+  },
   {
     id: "img-to-pdf",
     label: "Images to PDF",
     icon: FileText,
     path: "/img-to-pdf",
+    description:
+      "Quickly convert multiple images (JPG, PNG, HEIC, etc.) into a single, high-quality PDF document. Perfect for saving photo albums or screenshots securely.",
   },
-  { id: "split-pdf", label: "Split PDF", icon: Scissors, path: "/split-pdf" },
-  { id: "merge-pdf", label: "Merge PDFs", icon: Merge, path: "/merge-pdf" },
+  {
+    id: "split-pdf",
+    label: "Split PDF",
+    icon: Scissors,
+    path: "/split-pdf",
+    description:
+      "Extract specific pages or page ranges from any PDF document. Easily split a large PDF file into multiple, manageable smaller files for distribution.",
+  },
+  {
+    id: "merge-pdf",
+    label: "Merge PDFs",
+    icon: Merge,
+    path: "/merge-pdf",
+    description:
+      "Combine multiple PDF files into one unified document. Drag and drop to reorder pages and merge PDFs quickly and efficiently online.",
+  },
 ];
-
 // 1. DEFINE THE PROPS INTERFACE
 interface ToolWrapperProps {
   // This tells TypeScript the component expects JSX elements inside it.
@@ -31,6 +55,11 @@ const ToolWrapper = () => {
   // Get the current URL path for highlighting the active menu item
   const location = useLocation();
 
+  // 1. Find the current tool object based on the path
+  const currentTool = toolRoutes.find(
+    (tool) => tool.path === location.pathname
+  );
+
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4">
@@ -38,6 +67,12 @@ const ToolWrapper = () => {
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
             FastFileTools
           </h1>
+          {/* 2. DYNAMIC DESCRIPTION TEXT */}
+          {currentTool && (
+            <p className="text-gray-600 mb-4 max-w-2xl mx-auto">
+              {currentTool.description}
+            </p>
+          )}
         </div>
 
         {/* Tab Navigation (NOW A LINK MENU) */}
