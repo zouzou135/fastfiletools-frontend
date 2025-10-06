@@ -1,14 +1,28 @@
 import { Download, Merge } from "lucide-react";
 import FileUploadZone from "../utilities/FileUploadZone";
-import { useState } from "react";
-import { BaseFileResult } from "../../types/types";
+import { useEffect, useState } from "react";
+import { BaseJobFileResult, FileJobResponse } from "../../types/types";
 import { pdfService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
+import ProgressBar from "../utilities/ProgressBar";
 
 const PdfMerger = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [result, setResult] = useState<BaseFileResult | null>(null);
+  const [result, setResult] = useState<BaseJobFileResult | null>(null);
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [status, setStatus] = useState<string | null>(null);
+  const [progressStage, setProgressStage] = useState<string | null>(null);
+  const stageMap: Record<string, number> = {
+    queued: 10,
+    uploaded: 20,
+    normalizing: 40,
+    merging: 70,
+    completed: 100,
+    error: 100,
+  };
+
+  const progress = stageMap[progressStage || "queued"] || 0;
 
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
@@ -21,13 +35,46 @@ const PdfMerger = () => {
     setProcessing(true);
     try {
       const response = await pdfService.merge(selectedFiles);
-      setResult(response.data);
+      // Now returns { job_id }
+      setJobId(response.data.job_id);
+      setStatus("pending");
+      setProgressStage("queued");
     } catch (error) {
       console.error("Merge failed:", error);
-    } finally {
       setProcessing(false);
     }
   };
+
+  useEffect(() => {
+    if (!jobId) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const res = await pdfService.getJob(jobId);
+        const fileJobResponse: FileJobResponse = res.data;
+
+        setStatus(fileJobResponse.status);
+        setProgressStage(fileJobResponse.progress_stage);
+
+        if (
+          fileJobResponse.status === "completed" ||
+          fileJobResponse.status === "failed"
+        ) {
+          clearInterval(interval);
+          setProcessing(false);
+          if (fileJobResponse.status === "completed") {
+            setResult(fileJobResponse.result as BaseJobFileResult);
+          }
+        }
+      } catch (err) {
+        console.error("Polling failed:", err);
+        clearInterval(interval);
+        setProcessing(false);
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [jobId]);
 
   const removeFile = (index: number) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
@@ -125,6 +172,10 @@ const PdfMerger = () => {
                 onClick={() => {
                   setSelectedFiles([]);
                   setResult(null);
+                  setJobId(null);
+                  setStatus(null);
+                  setProgressStage(null);
+                  setProcessing(false);
                 }}
                 className="text-sm text-red-600 hover:text-red-800 underline"
               >
@@ -151,6 +202,10 @@ const PdfMerger = () => {
             Please select at least 2 PDF files to merge.
           </p>
         </div>
+      )}
+
+      {processing && (
+        <ProgressBar progress={progress} label={progressStage || "..."} />
       )}
 
       {result && (

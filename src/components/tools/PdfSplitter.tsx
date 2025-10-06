@@ -1,15 +1,29 @@
 import { Download, Scissors } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FileUploadZone from "../utilities/FileUploadZone";
-import { SplitPdfResult } from "../../types/types";
+import { FileJobResponse, SplitPdfResult } from "../../types/types";
 import { pdfService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
+import ProgressBar from "../utilities/ProgressBar";
 
 const PdfSplitter = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [pageRange, setPageRange] = useState("");
   const [processing, setProcessing] = useState(false);
   const [result, setResult] = useState<SplitPdfResult | null>(null);
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [status, setStatus] = useState<string | null>(null);
+  const [progressStage, setProgressStage] = useState<string | null>(null);
+  const stageMap: Record<string, number> = {
+    queued: 10,
+    uploaded: 20,
+    normalizing: 40,
+    splitting: 70,
+    completed: 100,
+    error: 100,
+  };
+
+  const progress = stageMap[progressStage || "queued"] || 0;
 
   const handleFileSelect = (files: File[]) => {
     if (files.length > 0) {
@@ -24,13 +38,47 @@ const PdfSplitter = () => {
     setProcessing(true);
     try {
       const response = await pdfService.split(selectedFile, pageRange);
-      setResult(response.data);
+
+      // Now returns { job_id }
+      setJobId(response.data.job_id);
+      setStatus("pending");
+      setProgressStage("queued");
     } catch (error: any) {
       console.error("Split failed:", error);
-    } finally {
       setProcessing(false);
     }
   };
+
+  useEffect(() => {
+    if (!jobId) return;
+
+    const interval = setInterval(async () => {
+      try {
+        const res = await pdfService.getJob(jobId);
+        const fileJobResponse: FileJobResponse = res.data;
+
+        setStatus(fileJobResponse.status);
+        setProgressStage(fileJobResponse.progress_stage);
+
+        if (
+          fileJobResponse.status === "completed" ||
+          fileJobResponse.status === "failed"
+        ) {
+          clearInterval(interval);
+          setProcessing(false);
+          if (fileJobResponse.status === "completed") {
+            setResult(fileJobResponse.result as SplitPdfResult);
+          }
+        }
+      } catch (err) {
+        console.error("Polling failed:", err);
+        clearInterval(interval);
+        setProcessing(false);
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [jobId]);
 
   return (
     <div className="space-y-6">
@@ -90,6 +138,10 @@ const PdfSplitter = () => {
                 onClick={() => {
                   setSelectedFile(null);
                   setResult(null);
+                  setJobId(null);
+                  setStatus(null);
+                  setProgressStage(null);
+                  setProcessing(false);
                 }}
                 className="text-sm text-red-600 hover:text-red-800 underline"
               >
@@ -106,6 +158,10 @@ const PdfSplitter = () => {
             {processing ? "Splitting PDF..." : "Split PDF"}
           </button>
         </div>
+      )}
+
+      {processing && (
+        <ProgressBar progress={progress} label={progressStage || "..."} />
       )}
 
       {result && result.split_pdfs && (

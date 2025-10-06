@@ -81,4 +81,8 @@ export const pdfService = {
     });
     return api.post("/pdf/merge", formData);
   },
+
+  getJob: (jobId: string) => {
+    return api.get(`/file-job/${jobId}`);
+  },
 };

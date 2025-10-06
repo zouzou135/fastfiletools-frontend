@@ -34,16 +34,28 @@ export interface BaseFileResult {
   expires_at?: string;
 }
 
+export interface BaseJobFileResult {
+  filename: string;
+  download_url: string;
+  url?: string;
+  expires_at?: string;
+}
+
 export interface CompressedImageResult extends BaseFileResult {
   original_size: number;
   compressed_size: number;
 }
 
-export interface SplitPdfOB extends BaseFileResult {
+export interface SplitPdfOB extends BaseJobFileResult {
   range: string;
 }
 
 export interface SplitPdfResult {
-  success: boolean;
   split_pdfs: SplitPdfOB[];
+}
+
+export interface FileJobResponse {
+  status: "pending" | "processing" | "completed" | "failed";
+  progress_stage: string | null;
+  result: SplitPdfResult | BaseJobFileResult | null;
 }
