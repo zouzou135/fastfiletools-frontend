@@ -5,6 +5,7 @@ import { FileJobResponse, SplitPdfResult } from "../../types/types";
 import { pdfService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
 import ProgressBar from "../utilities/ProgressBar";
+import { Helmet } from "react-helmet-async";
 
 const PdfSplitter = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -82,6 +83,13 @@ const PdfSplitter = () => {
 
   return (
     <div className="space-y-6">
+      <Helmet>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9323073702818036"
+          crossOrigin="anonymous"
+        ></script>
+      </Helmet>
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
         <Scissors className="text-orange-600" />
         PDF Splitter

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BaseFileResult } from "../../types/types";
 import { imageService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
+import { Helmet } from "react-helmet-async";
 
 const ImageTuner: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -43,6 +44,13 @@ const ImageTuner: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      <Helmet>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9323073702818036"
+          crossOrigin="anonymous"
+        ></script>
+      </Helmet>
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
         <Settings className="text-purple-600" />
         Image Tuner

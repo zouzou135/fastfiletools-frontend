@@ -4,6 +4,7 @@ import { BaseFileResult } from "../../types/types";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { imageService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
+import { Helmet } from "react-helmet-async";
 
 const ImageToPdfConverter: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -36,6 +37,13 @@ const ImageToPdfConverter: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      <Helmet>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9323073702818036"
+          crossOrigin="anonymous"
+        ></script>
+      </Helmet>
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
         <FileText className="text-red-600" />
         Images to PDF Converter

@@ -5,6 +5,7 @@ import { Download, Zap } from "lucide-react";
 import ProgressBar from "../utilities/ProgressBar";
 import { imageService } from "../../services/api";
 import { formatBytes } from "../../helpers/helperfunctions";
+import { Helmet } from "react-helmet-async";
 
 const ImageCompressor = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -50,6 +51,13 @@ const ImageCompressor = () => {
 
   return (
     <div className="space-y-6">
+      <Helmet>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9323073702818036"
+          crossOrigin="anonymous"
+        ></script>
+      </Helmet>
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
         <Zap className="text-blue-600" />
         Image Compressor
