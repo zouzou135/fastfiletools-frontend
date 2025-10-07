@@ -26,7 +26,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "pages-build": "npm install --legacy-peer-deps && vite build",
     "dev": "vite",
     "build": "vite build",
     "test": "vitest"
