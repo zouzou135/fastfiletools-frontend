@@ -5,6 +5,7 @@ import FileUploadZone from "../utilities/FileUploadZone";
 import { imageService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
 import { Helmet } from "react-helmet-async";
+import FileList from "../utilities/FileList";
 
 const ImageToPdfConverter: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -35,6 +36,15 @@ const ImageToPdfConverter: React.FC = () => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const moveFile = (fromIndex: number, toIndex: number) => {
+    setSelectedFiles((prev) => {
+      const newFiles = [...prev];
+      const [removed] = newFiles.splice(fromIndex, 1);
+      newFiles.splice(toIndex, 0, removed);
+      return newFiles;
+    });
+  };
+
   return (
     <div className="space-y-6">
       <Helmet>
@@ -53,40 +63,37 @@ const ImageToPdfConverter: React.FC = () => {
         onFilesSelected={handleFileSelect}
         accept="image/*"
         multiple={true}
+        hasFiles={selectedFiles.length != 0}
       >
-        <p className="text-gray-600 mb-2">
-          Drop multiple images here or click to browse
-        </p>
-        <p className="text-sm text-gray-400">
-          All images will be combined into one PDF
-        </p>
+        {selectedFiles.length != 0 ? (
+          <FileList
+            files={selectedFiles}
+            onRemove={removeFile}
+            onMove={moveFile}
+          />
+        ) : (
+          <>
+            <p className="text-gray-600 mb-2">
+              Drop multiple images here or click to browse
+            </p>
+            <p className="text-sm text-gray-400">
+              All images will be combined into one PDF
+            </p>
+          </>
+        )}
       </FileUploadZone>
 
       {selectedFiles.length > 0 && (
         <div className="space-y-4">
           <h3 className="font-semibold">
-            Selected Images ({selectedFiles.length}):
+            Selected Images ({selectedFiles.length})
           </h3>
-          <div className="space-y-2 max-h-40 overflow-y-auto">
-            {selectedFiles.map((file, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between bg-gray-50 p-3 rounded"
-              >
-                <div>
-                  <p className="text-sm font-medium">{file.name}</p>
-                  <p className="text-xs text-gray-500">
-                    {(file.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
-                </div>
-                <button
-                  onClick={() => removeFile(index)}
-                  className="text-red-500 hover:text-red-700 text-sm"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <p className="text-blue-800 text-sm">
+              <strong>Tip:</strong>{" "}
+              {"Use the < > arrows or drag to reorder images."}
+            </p>
           </div>
 
           {selectedFiles.length > 0 && (
@@ -96,7 +103,7 @@ const ImageToPdfConverter: React.FC = () => {
                   setSelectedFiles([]);
                   setResult(null);
                 }}
-                className="text-sm text-red-600 hover:text-red-800 underline"
+                className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
               >
                 Clear All
               </button>

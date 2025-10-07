@@ -6,6 +6,7 @@ import { pdfService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
 import ProgressBar from "../utilities/ProgressBar";
 import { Helmet } from "react-helmet-async";
+import FileItem from "../utilities/FileItem";
 
 const PdfSplitter = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -95,24 +96,39 @@ const PdfSplitter = () => {
         PDF Splitter
       </h2>
 
-      <FileUploadZone onFilesSelected={handleFileSelect} accept=".pdf">
-        <p className="text-gray-600 mb-2">
-          Drop your PDF here or click to browse
-        </p>
-        <p className="text-sm text-gray-400">
-          Extract specific pages from your PDF
-        </p>
+      <FileUploadZone
+        onFilesSelected={handleFileSelect}
+        accept=".pdf"
+        hasFiles={!!selectedFile}
+      >
+        {selectedFile ? (
+          <FileItem
+            file={selectedFile}
+            index={0}
+            lastIndex={0}
+            onRemove={() => setSelectedFile(null)}
+          />
+        ) : (
+          <>
+            <p className="text-gray-600 mb-2">
+              Drop your PDF here or click to browse
+            </p>
+            <p className="text-sm text-gray-400">
+              Extract specific pages from your PDF
+            </p>
+          </>
+        )}
       </FileUploadZone>
 
       {selectedFile && (
         <div className="space-y-4">
-          <div className="bg-gray-50 rounded-lg p-4">
+          {/* <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-semibold mb-2">Selected PDF:</h3>
             <p className="text-sm text-gray-600">{selectedFile.name}</p>
             <p className="text-sm text-gray-500">
               Size: {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
             </p>
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -151,7 +167,7 @@ const PdfSplitter = () => {
                   setProgressStage(null);
                   setProcessing(false);
                 }}
-                className="text-sm text-red-600 hover:text-red-800 underline"
+                className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
               >
                 Clear
               </button>

@@ -7,6 +7,7 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
   accept,
   multiple = false,
   children,
+  hasFiles = false,
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -14,7 +15,11 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setIsDragOver(true);
+    if (e.dataTransfer.types.includes("Files")) {
+      setIsDragOver(true);
+    } else {
+      e.dataTransfer.dropEffect = "move"; // internal reordering
+    }
   };
 
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
@@ -69,7 +74,9 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
       ? "border-red-500 bg-red-50"
       : isDragOver
       ? "border-blue-500 bg-blue-50 scale-105"
-      : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"
+      : `border-gray-300 ${
+          !hasFiles && "hover:border-gray-400 hover:bg-gray-50"
+        }`
   }`;
 
   return (
@@ -88,7 +95,7 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
         onChange={handleFileSelect}
         className="hidden"
       />
-      <Upload className="mx-auto mb-4 text-gray-400" size={48} />
+      {!hasFiles && <Upload className="mx-auto mb-4 text-gray-400" size={48} />}
       {children}
     </div>
   );

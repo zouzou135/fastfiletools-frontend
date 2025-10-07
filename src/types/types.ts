@@ -12,6 +12,7 @@ export interface FileUploadZoneProps {
   accept: string;
   multiple?: boolean;
   children: React.ReactNode;
+  hasFiles: boolean;
 }
 
 export interface ProgressBarProps {

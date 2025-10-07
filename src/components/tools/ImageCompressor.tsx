@@ -6,6 +6,7 @@ import ProgressBar from "../utilities/ProgressBar";
 import { imageService } from "../../services/api";
 import { formatBytes } from "../../helpers/helperfunctions";
 import { Helmet } from "react-helmet-async";
+import FileItem from "../utilities/FileItem";
 
 const ImageCompressor = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -63,14 +64,31 @@ const ImageCompressor = () => {
         Image Compressor
       </h2>
 
-      <FileUploadZone onFilesSelected={handleFileSelect} accept="image/*">
-        <p className="text-gray-600 mb-2">
-          Drop your image here or click to browse
-        </p>
-        <p className="text-sm text-gray-400">Supports JPG, PNG, GIF, WebP</p>
+      <FileUploadZone
+        onFilesSelected={handleFileSelect}
+        accept="image/*"
+        hasFiles={!!selectedFile}
+      >
+        {selectedFile ? (
+          <FileItem
+            file={selectedFile}
+            index={0}
+            lastIndex={0}
+            onRemove={() => setSelectedFile(null)}
+          />
+        ) : (
+          <>
+            <p className="text-gray-600 mb-2">
+              Drop your image here or click to browse
+            </p>
+            <p className="text-sm text-gray-400">
+              Supports JPG, PNG, GIF, WebP
+            </p>
+          </>
+        )}
       </FileUploadZone>
 
-      {selectedFile && (
+      {/* {selectedFile && (
         <div className="bg-gray-50 rounded-lg p-4">
           <h3 className="font-semibold mb-2">Selected File:</h3>
           <p className="text-sm text-gray-600">{selectedFile.name}</p>
@@ -78,7 +96,7 @@ const ImageCompressor = () => {
             Size: {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
           </p>
         </div>
-      )}
+      )} */}
 
       <div className="space-y-4">
         <div>
@@ -102,7 +120,7 @@ const ImageCompressor = () => {
                 setSelectedFile(null);
                 setResult(null);
               }}
-              className="text-sm text-red-600 hover:text-red-800 underline"
+              className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
             >
               Clear
             </button>

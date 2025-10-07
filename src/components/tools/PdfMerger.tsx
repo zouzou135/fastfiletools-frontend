@@ -6,6 +6,7 @@ import { pdfService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
 import ProgressBar from "../utilities/ProgressBar";
 import { Helmet } from "react-helmet-async";
+import FileList from "../utilities/FileList";
 
 const PdfMerger = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -108,21 +109,32 @@ const PdfMerger = () => {
         onFilesSelected={handleFileSelect}
         accept=".pdf"
         multiple={true}
+        hasFiles={selectedFiles.length != 0}
       >
-        <p className="text-gray-600 mb-2">
-          Drop multiple PDFs here or click to browse
-        </p>
-        <p className="text-sm text-gray-400">
-          Combine multiple PDFs into one document
-        </p>
+        {selectedFiles.length != 0 ? (
+          <FileList
+            files={selectedFiles}
+            onRemove={removeFile}
+            onMove={moveFile}
+          />
+        ) : (
+          <>
+            <p className="text-gray-600 mb-2">
+              Drop multiple PDFs here or click to browse
+            </p>
+            <p className="text-sm text-gray-400">
+              Combine multiple PDFs into one document
+            </p>{" "}
+          </>
+        )}
       </FileUploadZone>
 
       {selectedFiles.length > 0 && (
         <div className="space-y-4">
           <h3 className="font-semibold">
-            Selected PDFs ({selectedFiles.length}):
+            Selected PDFs ({selectedFiles.length})
           </h3>
-          <div className="space-y-2 max-h-60 overflow-y-auto">
+          {/* <div className="space-y-2 max-h-60 overflow-y-auto">
             {selectedFiles.map((file: File, index: number) => (
               <div
                 key={index}
@@ -165,12 +177,14 @@ const PdfMerger = () => {
                 </button>
               </div>
             ))}
-          </div>
+          </div> */}
 
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
             <p className="text-blue-800 text-sm">
-              <strong>Tip:</strong> Use the ↑↓ arrows to reorder PDFs. The final
-              merged PDF will follow this order.
+              <strong>Tip:</strong>{" "}
+              {
+                "Use the < > arrows or drag to reorder PDFs. The final merged PDF will follow this order."
+              }
             </p>
           </div>
 
@@ -185,7 +199,7 @@ const PdfMerger = () => {
                   setProgressStage(null);
                   setProcessing(false);
                 }}
-                className="text-sm text-red-600 hover:text-red-800 underline"
+                className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
               >
                 Clear All
               </button>

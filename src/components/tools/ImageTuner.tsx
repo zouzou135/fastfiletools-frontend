@@ -5,6 +5,7 @@ import { BaseFileResult } from "../../types/types";
 import { imageService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
 import { Helmet } from "react-helmet-async";
+import FileItem from "../utilities/FileItem";
 
 const ImageTuner: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -56,13 +57,28 @@ const ImageTuner: React.FC = () => {
         Image Tuner
       </h2>
 
-      <FileUploadZone onFilesSelected={handleFileSelect} accept="image/*">
-        <p className="text-gray-600 mb-2">
-          Drop your image here or click to browse
-        </p>
-        <p className="text-sm text-gray-400">
-          Tune brightness, contrast, and saturation
-        </p>
+      <FileUploadZone
+        onFilesSelected={handleFileSelect}
+        accept="image/*"
+        hasFiles={!!selectedFile}
+      >
+        {selectedFile ? (
+          <FileItem
+            file={selectedFile}
+            index={0}
+            lastIndex={0}
+            onRemove={() => setSelectedFile(null)}
+          />
+        ) : (
+          <>
+            <p className="text-gray-600 mb-2">
+              Drop your image here or click to browse
+            </p>
+            <p className="text-sm text-gray-400">
+              Tune brightness, contrast, and saturation
+            </p>
+          </>
+        )}
       </FileUploadZone>
 
       {selectedFile && (
@@ -100,7 +116,7 @@ const ImageTuner: React.FC = () => {
                       resetSettings();
                       setResult(null);
                     }}
-                    className="text-sm text-red-600 hover:text-red-800 underline"
+                    className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
                   >
                     Clear
                   </button>
