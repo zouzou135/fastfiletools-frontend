@@ -32,7 +32,7 @@ const PdfSplitter = () => {
     processing,
     runWithUploadProgress,
     cancelUpload,
-  } = useUploadProgress({ enableFakeProcessing: false });
+  } = useUploadProgress({ enableFakeProcessing: true });
 
   const jobProgress = stageMap[progressStage || "queued"] || 0;
 
