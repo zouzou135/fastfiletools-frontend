@@ -183,10 +183,10 @@ const PdfSplitter = () => {
 
           <button
             onClick={splitPdf}
-            disabled={!pageRange || processing}
+            disabled={!pageRange || processing || processingJob}
             className="w-full bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-orange-700 disabled:bg-gray-300 transition-colors"
           >
-            {processing ? "Splitting PDF..." : "Split PDF"}
+            {processing || processingJob ? "Splitting PDF..." : "Split PDF"}
           </button>
         </div>
       )}
