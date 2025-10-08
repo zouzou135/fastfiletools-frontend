@@ -1,79 +1,86 @@
-import React from "react";
-import { AppShell, Group, Text } from "@mantine/core";
+// components/Layout.tsx
+import { AppShell, Burger, Group, Text, ScrollArea } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import ToolList from "./ToolList";
+import { toolPaths } from "../../helpers/toolsData";
 
-const Layout = () => {
+export default function Layout() {
+  const [opened, { toggle }] = useDisclosure();
   const location = useLocation();
 
-  const links = [
-    { to: "/", label: "Tools" },
-    { to: "/about", label: "About" },
-    { to: "/privacy", label: "Privacy" },
-  ];
+  const isToolPage = toolPaths.includes(location.pathname);
+  const isHome = location.pathname === "/";
+  const isMetaPage = !isToolPage && !isHome;
 
   return (
     <AppShell
-      header={{ height: 60 }}
       padding={0}
+      header={{ height: 60 }}
+      navbar={
+        isToolPage
+          ? {
+              width: 280,
+              breakpoint: "sm",
+              collapsed: { mobile: !opened },
+            }
+          : undefined
+      }
       className="bg-gradient-to-br from-blue-50 via-white to-purple-50"
     >
+      {/* Header */}
       <AppShell.Header className="bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <Group justify="space-between" px="md" h="100%">
-          <Text fw={700}>FastFileTools</Text>
-          <Group gap="sm">
-            {links.map((link) => {
-              // 1. Define the active state check for this link
-              let isActive = location.pathname === link.to;
+          <Link to="/">
+            <Text fw={700}>FastFileTools</Text>
+          </Link>
 
-              // 2. Special Logic for the "Tools" link
-              if (link.to === "/") {
-                // Simplified Logic: Highlight Tools if the path doesn't start with any other main link.
-                // We assume any path that is not /about or /privacy must belong to a tool.
-                isActive =
-                  !location.pathname.startsWith("/about") &&
-                  !location.pathname.startsWith("/privacy");
+          {isToolPage && (
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom="sm"
+              size="sm"
+            />
+          )}
 
-                // Note: If you add a /terms page, you MUST exclude that here as well:
-                // isActive = !location.pathname.startsWith("/about") && !location.pathname.startsWith("/privacy") && !location.pathname.startsWith("/terms");
-              }
-
-              return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`px-2 py-1 rounded-lg transition-all duration-200 ${
-                    // Use the custom isActive variable
-                    isActive
-                      ? "bg-blue-600/60 text-white transform"
-                      : "text-gray-600 hover:bg-blue-600/10 hover:text-gray-800"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </Group>
+          {isMetaPage && (
+            <Link
+              to="/"
+              className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm font-medium"
+            >
+              ← Back to Tools
+            </Link>
+          )}
         </Group>
       </AppShell.Header>
 
+      {/* Sidebar only on tool pages */}
+      {isToolPage && (
+        <AppShell.Navbar className="bg-gradient-to-br from-blue-50 via-white to-purple-50">
+          <ScrollArea style={{ height: "100%" }}>
+            <ToolList onNavigate={toggle} />
+          </ScrollArea>
+        </AppShell.Navbar>
+      )}
+
+      {/* Main content */}
       <AppShell.Main>
         <div className="py-8">
           <Outlet />
         </div>
+        {/* Footer always present */}
+        <footer className="text-center pb-4 text-gray-500 text-sm">
+          <p>© 2025 FastFileTools</p>
+          <Link to="/about" className="text-blue-600 hover:underline">
+            About Us
+          </Link>{" "}
+          ·{" "}
+          <Link to="/privacy" className="text-blue-600 hover:underline">
+            Privacy Policy
+          </Link>
+        </footer>
       </AppShell.Main>
-
-      <footer className="text-center pb-4 text-gray-500 text-sm">
-        <p>© 2025 FastFileTools</p>
-        <Link to="/about" className="text-blue-600 hover:none">
-          About Us
-        </Link>{" "}
-        ·{" "}
-        <Link to="/privacy" className="text-blue-600 hover:none">
-          Privacy Policy
-        </Link>
-      </footer>
     </AppShell>
   );
-};
-
-export default Layout;
+}

@@ -6,11 +6,20 @@ import { imageService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
 import { Helmet } from "react-helmet-async";
 import FileList from "../utilities/FileList";
+import { useUploadProgress } from "../../hooks/useUploadProgress";
+import ProgressBar from "../utilities/ProgressBar";
 
 const ImageToPdfConverter: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [processing, setProcessing] = useState(false);
   const [result, setResult] = useState<BaseFileResult | null>(null);
+  const {
+    progress,
+    speed,
+    uploading,
+    processing,
+    runWithUploadProgress,
+    cancelUpload,
+  } = useUploadProgress({ enableFakeProcessing: true });
 
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
@@ -20,15 +29,14 @@ const ImageToPdfConverter: React.FC = () => {
   const convertToPdf = async () => {
     if (selectedFiles.length === 0) return;
 
-    setProcessing(true);
     try {
-      const response = await imageService.convertToPdf(selectedFiles);
+      const response = await runWithUploadProgress((onProgress, signal) =>
+        imageService.convertToPdf(selectedFiles, onProgress, signal)
+      );
 
       setResult(response.data);
     } catch (error) {
       console.error("Conversion failed:", error);
-    } finally {
-      setProcessing(false);
     }
   };
 
@@ -102,6 +110,7 @@ const ImageToPdfConverter: React.FC = () => {
                 onClick={() => {
                   setSelectedFiles([]);
                   setResult(null);
+                  cancelUpload();
                 }}
                 className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
               >
@@ -117,6 +126,13 @@ const ImageToPdfConverter: React.FC = () => {
             {processing ? "Converting to PDF..." : "Convert to PDF"}
           </button>
         </div>
+      )}
+
+      {(uploading || processing) && (
+        <ProgressBar
+          progress={progress}
+          label={uploading ? `Uploading (${speed})` : "Converting"}
+        />
       )}
 
       {result && (

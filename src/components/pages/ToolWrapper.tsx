@@ -1,50 +1,6 @@
-import { FileText, Scissors, Merge, Zap, Settings } from "lucide-react";
-import { Link, Outlet, useLocation } from "react-router-dom"; // IMPORTED
-import Layout from "../utilities/Layout";
+import { Outlet, useLocation } from "react-router-dom"; // IMPORTED
+import { toolCategories } from "../../helpers/toolsData";
 
-// Define the tool data with the actual PATHS (Crucial for SEO)
-const toolRoutes = [
-  {
-    id: "compress",
-    label: "Image Compressor",
-    icon: Zap,
-    path: "/compress-image",
-    description:
-      "Compress and optimize your JPEG, PNG, and GIF images instantly. Reduce file size without noticeable loss of quality for faster uploads and web performance.",
-  },
-  {
-    id: "tune",
-    label: "Image Tuner",
-    icon: Settings,
-    path: "/tune-image",
-    description:
-      "Edit and fine-tune your images with powerful tools. Easily crop, resize, and convert photos to different formats with precision and ease.",
-  },
-  {
-    id: "img-to-pdf",
-    label: "Images to PDF",
-    icon: FileText,
-    path: "/img-to-pdf",
-    description:
-      "Quickly convert multiple images (JPG, PNG, HEIC, etc.) into a single, high-quality PDF document. Perfect for saving photo albums or screenshots securely.",
-  },
-  {
-    id: "split-pdf",
-    label: "Split PDF",
-    icon: Scissors,
-    path: "/split-pdf",
-    description:
-      "Extract specific pages or page ranges from any PDF document. Easily split a large PDF file into multiple, manageable smaller files for distribution.",
-  },
-  {
-    id: "merge-pdf",
-    label: "Merge PDFs",
-    icon: Merge,
-    path: "/merge-pdf",
-    description:
-      "Combine multiple PDF files into one unified document. Drag and drop to reorder pages and merge PDFs quickly and efficiently online.",
-  },
-];
 // 1. DEFINE THE PROPS INTERFACE
 interface ToolWrapperProps {
   // This tells TypeScript the component expects JSX elements inside it.
@@ -55,10 +11,10 @@ const ToolWrapper = () => {
   // Get the current URL path for highlighting the active menu item
   const location = useLocation();
 
+  // Flatten
+  const allTools = toolCategories.flatMap((category) => category.tools);
   // 1. Find the current tool object based on the path
-  const currentTool = toolRoutes.find(
-    (tool) => tool.path === location.pathname
-  );
+  const currentTool = allTools.find((tool) => tool.path === location.pathname);
 
   return (
     <div className="min-h-screen">
@@ -73,28 +29,6 @@ const ToolWrapper = () => {
               {currentTool.description}
             </p>
           )}
-        </div>
-
-        {/* Tab Navigation (NOW A LINK MENU) */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {toolRoutes.map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <Link // CHANGED FROM <button> to <Link>
-                key={tab.id}
-                to={tab.path}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                  // Highlight based on URL path
-                  location.pathname === tab.path
-                    ? "bg-blue-600 text-white shadow-lg transform scale-105"
-                    : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-800 shadow-sm"
-                }`}
-              >
-                <Icon size={18} />
-                <span className="hidden sm:inline">{tab.label}</span>
-              </Link>
-            );
-          })}
         </div>
 
         {/* Main Content (NOW USES <Outlet />) */}

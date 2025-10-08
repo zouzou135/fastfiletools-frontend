@@ -7,11 +7,12 @@ import ToolWrapper from "../pages/ToolWrapper";
 import ProgressBar from "../utilities/ProgressBar";
 import { Helmet } from "react-helmet-async";
 import FileItem from "../utilities/FileItem";
+import { useUploadProgress } from "../../hooks/useUploadProgress";
 
 const PdfSplitter = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [pageRange, setPageRange] = useState("");
-  const [processing, setProcessing] = useState(false);
+  const [processingJob, setProcessingJob] = useState(false);
   const [result, setResult] = useState<SplitPdfResult | null>(null);
   const [jobId, setJobId] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
@@ -24,8 +25,16 @@ const PdfSplitter = () => {
     completed: 100,
     error: 100,
   };
+  const {
+    progress,
+    speed,
+    uploading,
+    processing,
+    runWithUploadProgress,
+    cancelUpload,
+  } = useUploadProgress({ enableFakeProcessing: false });
 
-  const progress = stageMap[progressStage || "queued"] || 0;
+  const jobProgress = stageMap[progressStage || "queued"] || 0;
 
   const handleFileSelect = (files: File[]) => {
     if (files.length > 0) {
@@ -37,7 +46,6 @@ const PdfSplitter = () => {
   const splitPdf = async () => {
     if (!selectedFile || !pageRange) return;
 
-    setProcessing(true);
     try {
       const response = await pdfService.split(selectedFile, pageRange);
 
@@ -47,7 +55,6 @@ const PdfSplitter = () => {
       setProgressStage("queued");
     } catch (error: any) {
       console.error("Split failed:", error);
-      setProcessing(false);
     }
   };
 
@@ -67,7 +74,7 @@ const PdfSplitter = () => {
           fileJobResponse.status === "failed"
         ) {
           clearInterval(interval);
-          setProcessing(false);
+          setProcessingJob(false);
           if (fileJobResponse.status === "completed") {
             setResult(fileJobResponse.result as SplitPdfResult);
           }
@@ -75,7 +82,7 @@ const PdfSplitter = () => {
       } catch (err) {
         console.error("Polling failed:", err);
         clearInterval(interval);
-        setProcessing(false);
+        setProcessingJob(false);
       }
     }, 2000);
 
@@ -165,7 +172,7 @@ const PdfSplitter = () => {
                   setJobId(null);
                   setStatus(null);
                   setProgressStage(null);
-                  setProcessing(false);
+                  cancelUpload();
                 }}
                 className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
               >
@@ -184,8 +191,17 @@ const PdfSplitter = () => {
         </div>
       )}
 
-      {processing && (
-        <ProgressBar progress={progress} label={progressStage || "..."} />
+      {(uploading || processingJob) && (
+        <ProgressBar
+          progress={processingJob ? jobProgress : progress}
+          label={
+            uploading
+              ? `Uploading (${speed})`
+              : progressStage
+              ? progressStage
+              : "Splitting"
+          }
+        />
       )}
 
       {result && result.split_pdfs && (

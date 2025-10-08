@@ -6,6 +6,8 @@ import { imageService } from "../../services/api";
 import ToolWrapper from "../pages/ToolWrapper";
 import { Helmet } from "react-helmet-async";
 import FileItem from "../utilities/FileItem";
+import { useUploadProgress } from "../../hooks/useUploadProgress";
+import ProgressBar from "../utilities/ProgressBar";
 
 const ImageTuner: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -14,8 +16,15 @@ const ImageTuner: React.FC = () => {
     contrast: 0,
     saturation: 0,
   });
-  const [processing, setProcessing] = useState(false);
   const [result, setResult] = useState<BaseFileResult | null>(null);
+  const {
+    progress,
+    speed,
+    uploading,
+    processing,
+    runWithUploadProgress,
+    cancelUpload,
+  } = useUploadProgress({ enableFakeProcessing: true });
 
   const handleFileSelect = (files: File[]) => {
     if (files.length > 0) {
@@ -27,15 +36,14 @@ const ImageTuner: React.FC = () => {
   const tuneImage = async () => {
     if (!selectedFile) return;
 
-    setProcessing(true);
     try {
-      const response = await imageService.tune(selectedFile, settings);
+      const response = await runWithUploadProgress((onProgress, signal) =>
+        imageService.tune(selectedFile, settings, onProgress, signal)
+      );
 
       setResult(response.data);
     } catch (error) {
       console.error("Tuning failed:", error);
-    } finally {
-      setProcessing(false);
     }
   };
 
@@ -115,6 +123,7 @@ const ImageTuner: React.FC = () => {
                       setSelectedFile(null);
                       resetSettings();
                       setResult(null);
+                      cancelUpload();
                     }}
                     className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
                   >
@@ -158,6 +167,13 @@ const ImageTuner: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {(uploading || processing) && (
+        <ProgressBar
+          progress={progress}
+          label={uploading ? `Uploading (${speed})` : "Tuning"}
+        />
       )}
 
       {result && (

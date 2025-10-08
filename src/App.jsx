@@ -7,6 +7,7 @@ import ImageTuner from "./components/tools/ImageTuner";
 import ImageToPdfConverter from "./components/tools/ImageToPdfConverter";
 import PdfMerger from "./components/tools/PdfMerger";
 import PdfSplitter from "./components/tools/PdfSplitter";
+import HomeScreen from "./components/pages/HomeScreen";
 import {
   BrowserRouter as Router,
   Routes,
@@ -21,12 +22,9 @@ function App() {
       <Routes>
         {/* TOP-LEVEL WRAPPER: Layout (Header/Footer) */}
         <Route element={<Layout />}>
+          <Route path="/" element={<HomeScreen />} />
           {/* 1. TOOL WRAPPER (Handles ALL Tool-Related Paths) */}
-          {/* 1. ROOT PATH HANDLING: Render ToolWrapper at the root path */}
-          <Route path="/" element={<ToolWrapper />}>
-            {/* The index route of ToolWrapper immediately redirects from / to /compress-image */}
-            <Route index element={<Navigate to="compress-image" replace />} />
-
+          <Route element={<ToolWrapper />}>
             {/* The specific tool paths (Children of ToolWrapper) */}
             <Route path="compress-image" element={<ImageCompressor />} />
             <Route path="tune-image" element={<ImageTuner />} />

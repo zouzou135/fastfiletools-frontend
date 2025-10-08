@@ -7,13 +7,20 @@ import { imageService } from "../../services/api";
 import { formatBytes } from "../../helpers/helperfunctions";
 import { Helmet } from "react-helmet-async";
 import FileItem from "../utilities/FileItem";
+import { useUploadProgress } from "../../hooks/useUploadProgress";
 
 const ImageCompressor = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [quality, setQuality] = useState(80);
-  const [processing, setProcessing] = useState(false);
   const [result, setResult] = useState<CompressedImageResult | null>(null);
-  const [progress, setProgress] = useState(0);
+  const {
+    progress,
+    speed,
+    uploading,
+    processing,
+    runWithUploadProgress,
+    cancelUpload,
+  } = useUploadProgress({ enableFakeProcessing: true });
 
   const handleFileSelect = (files: File[]) => {
     if (files.length > 0) {
@@ -25,28 +32,13 @@ const ImageCompressor = () => {
   const compressImage = async () => {
     if (!selectedFile) return;
 
-    setProcessing(true);
-    setProgress(0);
-
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 90) {
-          clearInterval(progressInterval);
-          return 90;
-        }
-        return prev + 10;
-      });
-    }, 200);
-
     try {
-      const response = await imageService.compress(selectedFile, quality);
-      setProgress(100);
+      const response = await runWithUploadProgress((onProgress, signal) =>
+        imageService.compress(selectedFile, quality, onProgress, signal)
+      );
       setResult(response.data); // Make sure response.data matches MockApiData
     } catch (error) {
       console.error("Compression failed:", error);
-    } finally {
-      setProcessing(false);
-      clearInterval(progressInterval);
     }
   };
 
@@ -119,6 +111,7 @@ const ImageCompressor = () => {
               onClick={() => {
                 setSelectedFile(null);
                 setResult(null);
+                cancelUpload();
               }}
               className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
             >
@@ -136,8 +129,11 @@ const ImageCompressor = () => {
         </button>
       </div>
 
-      {processing && (
-        <ProgressBar progress={progress} label="Compressing image" />
+      {(uploading || processing) && (
+        <ProgressBar
+          progress={progress}
+          label={uploading ? `Uploading (${speed})` : "Compressing image"}
+        />
       )}
 
       {result && (

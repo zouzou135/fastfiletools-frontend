@@ -1,5 +1,6 @@
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
+import { withUploadProgress } from "../helpers/helperfunctions";
 
 const API_BASE_URL = import.meta.env.DEV
   ? "/api" // 👈 FOR LOCAL DEV: Uses the RELATIVE path so Vite's proxy can intercept it.
@@ -41,45 +42,88 @@ api.interceptors.response.use(
 );
 
 export const imageService = {
-  compress: (file: File, quality = 80) => {
+  compress: (
+    file: File,
+    quality = 80,
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
     const formData = new FormData();
     formData.append("image", file);
     formData.append("quality", quality.toString());
-    return api.post("/image/compress", formData);
+    return api.post(
+      "/image/compress",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
   },
 
-  tune: (file: File, options: Record<string, string | number> = {}) => {
+  tune: (
+    file: File,
+    options: Record<string, string | number> = {},
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
     const formData = new FormData();
     formData.append("image", file);
     Object.keys(options).forEach((key) => {
       formData.append(key, options[key].toString());
     });
-    return api.post("/image/tune", formData);
+    return api.post(
+      "/image/tune",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
   },
 
-  convertToPdf: (files: File[]) => {
+  convertToPdf: (
+    files: File[],
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
     const formData = new FormData();
     files.forEach((file: File, index) => {
       formData.append(`images[${index}]`, file);
     });
-    return api.post("/image/convert-to-pdf", formData);
+    return api.post(
+      "/image/convert-to-pdf",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
   },
 };
 
 export const pdfService = {
-  split: (file: File, pages: string) => {
+  split: (
+    file: File,
+    pages: string,
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
     const formData = new FormData();
     formData.append("pdf", file);
     formData.append("pages", pages);
-    return api.post("/pdf/split", formData);
+    return api.post(
+      "/pdf/split",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
   },
 
-  merge: (files: File[]) => {
+  merge: (
+    files: File[],
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
     const formData = new FormData();
     files.forEach((file, index) => {
       formData.append(`pdfs[${index}]`, file);
     });
-    return api.post("/pdf/merge", formData);
+    return api.post(
+      "/pdf/merge",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
   },
 
   getJob: (jobId: string) => {
