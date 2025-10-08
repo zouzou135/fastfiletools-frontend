@@ -18,7 +18,7 @@ export function useUploadProgress({ enableFakeProcessing = true } = {}) {
     setUploading(true);
     setProcessing(false);
     setProgress(0);
-    setSpeed(null);
+    setSpeed("calculating speed");
 
     controllerRef.current = new AbortController();
 
@@ -33,6 +33,8 @@ export function useUploadProgress({ enableFakeProcessing = true } = {}) {
           enableFakeProcessing &&
           !fakeIntervalRef.current
         ) {
+          setUploading(false);
+          setProgress(0);
           setProcessing(true);
           fakeIntervalRef.current = setInterval(() => {
             setProgress((p) => {
@@ -57,6 +59,7 @@ export function useUploadProgress({ enableFakeProcessing = true } = {}) {
 
       return result;
     } finally {
+      setProcessing(false);
       setUploading(false);
     }
   };
