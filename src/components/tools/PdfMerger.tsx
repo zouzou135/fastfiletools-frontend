@@ -217,10 +217,15 @@ const PdfMerger = () => {
 
           <button
             onClick={mergePdfs}
-            disabled={selectedFiles.length < 2 || processing || processingJob}
+            disabled={
+              selectedFiles.length < 2 ||
+              processing ||
+              uploading ||
+              processingJob
+            }
             className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 disabled:bg-gray-300 transition-colors"
           >
-            {processing || processingJob
+            {processing || uploading || processingJob
               ? "Merging PDFs..."
               : `Merge ${selectedFiles.length} PDFs`}
           </button>
@@ -235,7 +240,7 @@ const PdfMerger = () => {
         </div>
       )}
 
-      {(uploading || processingJob) && (
+      {(uploading || processingJob || processing) && (
         <ProgressBar
           progress={processingJob ? jobProgress : progress}
           label={
