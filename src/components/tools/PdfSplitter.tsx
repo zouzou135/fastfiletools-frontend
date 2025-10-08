@@ -55,6 +55,7 @@ const PdfSplitter = () => {
       setJobId(response.data.job_id);
       setStatus("pending");
       setProgressStage("queued");
+      setProcessingJob(true);
     } catch (error: any) {
       console.error("Split failed:", error);
     }
@@ -174,6 +175,7 @@ const PdfSplitter = () => {
                   setJobId(null);
                   setStatus(null);
                   setProgressStage(null);
+                  setPageRange("");
                   cancelUpload();
                 }}
                 className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"

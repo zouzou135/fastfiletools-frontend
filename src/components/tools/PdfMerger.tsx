@@ -51,6 +51,7 @@ const PdfMerger = () => {
       setJobId(response.data.job_id);
       setStatus("pending");
       setProgressStage("queued");
+      setProcessingJob(true);
     } catch (error) {
       console.error("Merge failed:", error);
     }
