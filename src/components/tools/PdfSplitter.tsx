@@ -32,7 +32,7 @@ const PdfSplitter = () => {
     processing,
     runWithUploadProgress,
     cancelUpload,
-  } = useUploadProgress({ enableFakeProcessing: true });
+  } = useUploadProgress({ enableFakeProcessing: false });
 
   const jobProgress = stageMap[progressStage || "queued"] || 0;
 
@@ -47,7 +47,9 @@ const PdfSplitter = () => {
     if (!selectedFile || !pageRange) return;
 
     try {
-      const response = await pdfService.split(selectedFile, pageRange);
+      const response = await runWithUploadProgress((onProgress, signal) =>
+        pdfService.split(selectedFile, pageRange, onProgress, signal)
+      );
 
       // Now returns { job_id }
       setJobId(response.data.job_id);

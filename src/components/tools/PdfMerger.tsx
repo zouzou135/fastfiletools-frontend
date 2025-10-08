@@ -31,7 +31,7 @@ const PdfMerger = () => {
     processing,
     runWithUploadProgress,
     cancelUpload,
-  } = useUploadProgress({ enableFakeProcessing: true });
+  } = useUploadProgress({ enableFakeProcessing: false });
 
   const jobProgress = stageMap[progressStage || "queued"] || 0;
 
