@@ -61,6 +61,13 @@ const FileItem = ({
     };
   }, [file]);
 
+  useEffect(() => {
+    pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+      "pdfjs-dist/build/pdf.worker.min.mjs",
+      import.meta.url
+    ).toString();
+  }, []);
+
   return (
     <div
       className="relative flex flex-col items-center bg-gray-100 rounded w-28 shadow"
