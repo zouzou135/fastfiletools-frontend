@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/core/styles.css";
-import "@mantine/dropzone/styles.css";
 import "@mantine/notifications/styles.css";
 import { HelmetProvider } from "react-helmet-async";
 import { pdfjs } from "react-pdf";
