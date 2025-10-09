@@ -1,6 +1,3 @@
-import React from "react";
-import Layout from "../utilities/Layout";
-
 const AboutUs = () => {
   return (
     <div className="px-4">

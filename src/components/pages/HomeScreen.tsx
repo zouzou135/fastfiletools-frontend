@@ -1,4 +1,3 @@
-import { FileText, Scissors, Merge, Zap, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toolCategories } from "../../helpers/toolsData";
 

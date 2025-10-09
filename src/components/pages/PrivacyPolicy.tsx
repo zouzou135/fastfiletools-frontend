@@ -1,6 +1,3 @@
-import React from "react";
-import Layout from "../utilities/Layout";
-
 const PrivacyPolicy = () => {
   return (
     <div className="px-4">

@@ -3,7 +3,6 @@ import FileUploadZone from "../utilities/FileUploadZone";
 import { useEffect, useState } from "react";
 import { BaseJobFileResult, FileJobResponse } from "../../types/types";
 import { pdfService } from "../../services/api";
-import ToolWrapper from "../pages/ToolWrapper";
 import ProgressBar from "../utilities/ProgressBar";
 import { Helmet } from "react-helmet-async";
 import FileList from "../utilities/FileList";

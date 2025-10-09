@@ -3,7 +3,6 @@ import FileUploadZone from "../utilities/FileUploadZone";
 import { useState } from "react";
 import { BaseFileResult } from "../../types/types";
 import { imageService } from "../../services/api";
-import ToolWrapper from "../pages/ToolWrapper";
 import { Helmet } from "react-helmet-async";
 import FileItem from "../utilities/FileItem";
 import { useUploadProgress } from "../../hooks/useUploadProgress";
