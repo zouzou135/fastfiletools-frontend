@@ -41,6 +41,9 @@ export default function Layout() {
               onClick={toggle}
               hiddenFrom="sm"
               size="sm"
+              aria-label={
+                opened ? "Close navigation menu" : "Open navigation menu"
+              }
             />
           )}
 
