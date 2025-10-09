@@ -253,7 +253,7 @@ const PdfMerger = () => {
               ? `Uploading (${speed})`
               : progressStage
               ? progressStage
-              : "Merging"
+              : "Merging.."
           }
         />
       )}
