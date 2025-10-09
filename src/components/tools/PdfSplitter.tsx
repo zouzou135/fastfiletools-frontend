@@ -246,7 +246,7 @@ const PdfSplitter = () => {
               className="bg-green-600 text-white mt-3 px-4 py-2 rounded hover:bg-green-700 transition-colors inline-flex items-center"
             >
               <Download className="inline mr-2" size={16} />
-              Download ALL
+              Download All
             </a>
           )}
         </div>
