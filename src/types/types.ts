@@ -53,6 +53,7 @@ export interface SplitPdfOB extends BaseJobFileResult {
 
 export interface SplitPdfResult {
   split_pdfs: SplitPdfOB[];
+  zip: BaseJobFileResult;
 }
 
 export interface FileJobResponse {

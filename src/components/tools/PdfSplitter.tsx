@@ -32,7 +32,7 @@ const PdfSplitter = () => {
     processing,
     runWithUploadProgress,
     cancelUpload,
-  } = useUploadProgress({ enableFakeProcessing: false });
+  } = useUploadProgress({ enableFakeProcessing: true });
 
   const jobProgress = stageMap[progressStage || "queued"] || 0;
 
@@ -51,11 +51,15 @@ const PdfSplitter = () => {
         pdfService.split(selectedFile, pageRange, onProgress, signal)
       );
 
-      // Now returns { job_id }
-      setJobId(response.data.job_id);
-      setStatus("pending");
-      setProgressStage("queued");
-      setProcessingJob(true);
+      if (response.data.job_id) {
+        // Now returns { job_id }
+        setJobId(response.data.job_id);
+        setStatus("pending");
+        setProgressStage("queued");
+        setProcessingJob(true);
+      } else {
+        setResult(response.data);
+      }
     } catch (error: any) {
       console.error("Split failed:", error);
     }
@@ -197,7 +201,7 @@ const PdfSplitter = () => {
         </div>
       )}
 
-      {(uploading || processingJob) && (
+      {(uploading || processing || processingJob) && (
         <ProgressBar
           progress={processingJob ? jobProgress : progress}
           label={
@@ -235,6 +239,16 @@ const PdfSplitter = () => {
               </div>
             ))}
           </div>
+          {result.zip && (
+            <a
+              href={result.zip.download_url}
+              download={result.zip.filename}
+              className="bg-green-600 text-white mt-3 px-4 py-2 rounded hover:bg-green-700 transition-colors inline-flex items-center"
+            >
+              <Download className="inline mr-2" size={16} />
+              Download ALL
+            </a>
+          )}
         </div>
       )}
     </div>

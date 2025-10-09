@@ -31,7 +31,7 @@ const PdfMerger = () => {
     processing,
     runWithUploadProgress,
     cancelUpload,
-  } = useUploadProgress({ enableFakeProcessing: false });
+  } = useUploadProgress({ enableFakeProcessing: true });
 
   const jobProgress = stageMap[progressStage || "queued"] || 0;
 
@@ -47,11 +47,15 @@ const PdfMerger = () => {
       const response = await runWithUploadProgress((onProgress, signal) =>
         pdfService.merge(selectedFiles, onProgress, signal)
       );
-      // Now returns { job_id }
-      setJobId(response.data.job_id);
-      setStatus("pending");
-      setProgressStage("queued");
-      setProcessingJob(true);
+      if (response.data.job_id) {
+        // Now returns { job_id }
+        setJobId(response.data.job_id);
+        setStatus("pending");
+        setProgressStage("queued");
+        setProcessingJob(true);
+      } else {
+        setResult(response.data);
+      }
     } catch (error) {
       console.error("Merge failed:", error);
     }
