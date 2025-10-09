@@ -8,25 +8,6 @@ export default defineConfig({
       // KEEP THIS: It ensures the React plugin handles JSX in all these file types
       include: "**/*.{js,jsx,ts,tsx}",
     }),
-    {
-      name: "html-transform",
-      transformIndexHtml(html) {
-        return {
-          html,
-          tags: [
-            {
-              tag: "link",
-              attrs: {
-                rel: "preload",
-                as: "style",
-                href: "/assets/index.css", // Vite will resolve this to the hashed filename
-              },
-              injectTo: "head",
-            },
-          ],
-        };
-      },
-    },
   ],
   // Configure proxy to forward API requests to your Laravel backend
   server: {
