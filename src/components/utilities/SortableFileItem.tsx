@@ -1,7 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { Suspense } from "react";
-const FileItem = React.lazy(() => import("../utilities/FileItem"));
+import FileItem from "./FileItem";
 
 type SortableFileItemProps = {
   id: string;
@@ -38,17 +37,13 @@ const SortableFileItem = ({
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Suspense
-        fallback={<div className="h-24 bg-gray-100 rounded animate-pulse" />}
-      >
-        <FileItem
-          file={file}
-          index={index}
-          lastIndex={lastIndex}
-          onRemove={onRemove}
-          onMove={onMove}
-        />
-      </Suspense>
+      <FileItem
+        file={file}
+        index={index}
+        lastIndex={lastIndex}
+        onRemove={onRemove}
+        onMove={onMove}
+      />
     </div>
   );
 };

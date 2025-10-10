@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CompressedImageResult } from "../../types/types";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { Download, Zap } from "lucide-react";
@@ -6,8 +6,7 @@ import ProgressBar from "../utilities/ProgressBar";
 import { imageService } from "../../services/api";
 import { formatBytes } from "../../helpers/helperfunctions";
 import { Helmet } from "react-helmet-async";
-import { Suspense } from "react";
-const FileItem = React.lazy(() => import("../utilities/FileItem"));
+import FileItem from "../utilities/FileItem";
 import { useUploadProgress } from "../../hooks/useUploadProgress";
 
 const ImageCompressor = () => {
@@ -63,18 +62,12 @@ const ImageCompressor = () => {
         hasFiles={!!selectedFile}
       >
         {selectedFile ? (
-          <Suspense
-            fallback={
-              <div className="h-24 bg-gray-100 rounded animate-pulse" />
-            }
-          >
-            <FileItem
-              file={selectedFile}
-              index={0}
-              lastIndex={0}
-              onRemove={() => setSelectedFile(null)}
-            />
-          </Suspense>
+          <FileItem
+            file={selectedFile}
+            index={0}
+            lastIndex={0}
+            onRemove={() => setSelectedFile(null)}
+          />
         ) : (
           <>
             <p className="text-gray-600 mb-2">

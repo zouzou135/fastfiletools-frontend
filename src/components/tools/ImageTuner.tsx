@@ -1,11 +1,10 @@
 import { Download, Settings } from "lucide-react";
 import FileUploadZone from "../utilities/FileUploadZone";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BaseFileResult } from "../../types/types";
 import { imageService } from "../../services/api";
 import { Helmet } from "react-helmet-async";
-import { Suspense } from "react";
-const FileItem = React.lazy(() => import("../utilities/FileItem"));
+import FileItem from "../utilities/FileItem";
 import { useUploadProgress } from "../../hooks/useUploadProgress";
 import ProgressBar from "../utilities/ProgressBar";
 
@@ -71,18 +70,12 @@ const ImageTuner: React.FC = () => {
         hasFiles={!!selectedFile}
       >
         {selectedFile ? (
-          <Suspense
-            fallback={
-              <div className="h-24 bg-gray-100 rounded animate-pulse" />
-            }
-          >
-            <FileItem
-              file={selectedFile}
-              index={0}
-              lastIndex={0}
-              onRemove={() => setSelectedFile(null)}
-            />
-          </Suspense>
+          <FileItem
+            file={selectedFile}
+            index={0}
+            lastIndex={0}
+            onRemove={() => setSelectedFile(null)}
+          />
         ) : (
           <>
             <p className="text-gray-600 mb-2">

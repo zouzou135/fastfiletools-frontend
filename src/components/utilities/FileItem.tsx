@@ -1,6 +1,7 @@
 import { Tooltip } from "@mantine/core";
-import { useEffect, useState } from "react";
-import { pdfjs } from "react-pdf";
+import { Suspense, useEffect, useState } from "react";
+import * as pdfjsLib from "pdfjs-dist";
+import PdfThumbnail from "./PdfThumbnail";
 
 type FileItemProps = {
   file: File;
@@ -20,53 +21,12 @@ const FileItem = ({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-
-    const generatePreview = async () => {
-      const fileType = file.type;
-
-      if (fileType.startsWith("image/")) {
-        const imageUrl = URL.createObjectURL(file);
-        if (!cancelled) {
-          setPreviewUrl(imageUrl);
-        }
-      } else if (fileType === "application/pdf") {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
-        const page = await pdf.getPage(1);
-
-        const viewport = page.getViewport({ scale: 1 });
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d")!;
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        await page.render({ canvasContext: context, viewport }).promise;
-
-        if (!cancelled) {
-          setPreviewUrl(canvas.toDataURL());
-        }
-      } else {
-        setPreviewUrl(null);
-      }
-    };
-
-    generatePreview();
-
-    return () => {
-      cancelled = true;
-      if (file.type.startsWith("image/")) {
-        URL.revokeObjectURL(previewUrl || "");
-      }
-    };
+    if (file.type.startsWith("image/")) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
   }, [file]);
-
-  useEffect(() => {
-    pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-      "pdfjs-dist/build/pdf.worker.min.mjs",
-      import.meta.url
-    ).toString();
-  }, []);
 
   return (
     <div
@@ -90,15 +50,26 @@ const FileItem = ({
 
       {/* Preview */}
       <div className="w-28 h-28 bg-gray-200 flex items-center justify-center overflow-hidden rounded-tl rounded-tr">
-        {(file.type.startsWith("image/") || file.type === "application/pdf") &&
-          previewUrl && (
-            <img
-              src={previewUrl}
-              alt={file.name}
-              className="object-contain w-full h-full"
-              draggable={false}
-            />
-          )}
+        {file.type.startsWith("image/") && previewUrl && (
+          <img
+            src={previewUrl}
+            alt={file.name}
+            draggable={false}
+            className="object-contain w-full h-full"
+          />
+        )}
+        {file.type === "application/pdf" && !previewUrl && (
+          <Suspense fallback={<div className="animate-spin">Loading…</div>}>
+            <PdfThumbnail file={file} onReady={setPreviewUrl} />
+          </Suspense>
+        )}
+        {file.type === "application/pdf" && previewUrl && (
+          <img
+            src={previewUrl}
+            alt="PDF preview"
+            className="object-contain w-full h-full"
+          />
+        )}
       </div>
 
       <div className="relative flex flex-col items-center w-28 px-2 py-1">
