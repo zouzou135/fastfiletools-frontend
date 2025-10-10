@@ -1,11 +1,12 @@
 import { Download, Scissors } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FileUploadZone from "../utilities/FileUploadZone";
 import { FileJobResponse, SplitPdfResult } from "../../types/types";
 import { pdfService } from "../../services/api";
 import ProgressBar from "../utilities/ProgressBar";
 import { Helmet } from "react-helmet-async";
-import FileItem from "../utilities/FileItem";
+import { Suspense } from "react";
+const FileItem = React.lazy(() => import("../utilities/FileItem"));
 import { useUploadProgress } from "../../hooks/useUploadProgress";
 
 const PdfSplitter = () => {
@@ -115,12 +116,18 @@ const PdfSplitter = () => {
         hasFiles={!!selectedFile}
       >
         {selectedFile ? (
-          <FileItem
-            file={selectedFile}
-            index={0}
-            lastIndex={0}
-            onRemove={() => setSelectedFile(null)}
-          />
+          <Suspense
+            fallback={
+              <div className="h-24 bg-gray-100 rounded animate-pulse" />
+            }
+          >
+            <FileItem
+              file={selectedFile}
+              index={0}
+              lastIndex={0}
+              onRemove={() => setSelectedFile(null)}
+            />
+          </Suspense>
         ) : (
           <>
             <p className="text-gray-600 mb-2">

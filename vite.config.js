@@ -9,6 +9,23 @@ export default defineConfig({
       include: "**/*.{js,jsx,ts,tsx}",
     }),
   ],
+  build: {
+    // Code splitting
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "pdf-vendor": ["react-pdf", "pdfjs-dist"],
+          "mantine-core": ["@mantine/core"],
+          "mantine-hooks": ["@mantine/hooks"],
+          "mantine-notifications": ["@mantine/notifications"],
+        },
+      },
+    },
+    // Remove console.logs in production
+    minify: "esbuild",
+    sourcemap: true,
+  },
   // Configure proxy to forward API requests to your Laravel backend
   server: {
     proxy: {
