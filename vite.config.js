@@ -15,7 +15,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           "react-vendor": ["react", "react-dom", "react-router-dom"],
-          "pdf-vendor": ["react-pdf", "pdfjs-dist"],
+          "pdf-vendor": ["pdfjs-dist"],
           "mantine-core": ["@mantine/core"],
           "mantine-hooks": ["@mantine/hooks"],
           "mantine-notifications": ["@mantine/notifications"],

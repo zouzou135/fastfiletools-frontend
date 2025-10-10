@@ -1,6 +1,6 @@
 import { Tooltip } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { pdfjs } from "react-pdf";
+import * as pdfjs from "pdfjs-dist";
 
 type FileItemProps = {
   file: File;
@@ -41,7 +41,7 @@ const FileItem = ({
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
-        await page.render({ canvasContext: context, viewport }).promise;
+        await page.render({ canvasContext: context, viewport, canvas }).promise;
 
         if (!cancelled) {
           setPreviewUrl(canvas.toDataURL());
@@ -60,13 +60,6 @@ const FileItem = ({
       }
     };
   }, [file]);
-
-  useEffect(() => {
-    pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-      "pdfjs-dist/build/pdf.worker.min.mjs",
-      import.meta.url
-    ).toString();
-  }, []);
 
   return (
     <div
