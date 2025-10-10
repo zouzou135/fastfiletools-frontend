@@ -139,10 +139,10 @@ const ImageTuner: React.FC = () => {
                 </button>
                 <button
                   onClick={tuneImage}
-                  disabled={processing}
+                  disabled={processing || uploading}
                   className="flex-1 bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 disabled:bg-gray-300 transition-colors"
                 >
-                  {processing ? "Tuning..." : "Tune"}
+                  {processing || uploading ? "Tuning..." : "Tune"}
                 </button>
               </div>
             </div>

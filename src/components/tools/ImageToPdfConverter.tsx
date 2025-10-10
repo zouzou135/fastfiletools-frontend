@@ -119,10 +119,12 @@ const ImageToPdfConverter: React.FC = () => {
           )}
           <button
             onClick={convertToPdf}
-            disabled={processing}
+            disabled={processing || uploading}
             className="w-full bg-red-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-red-700 disabled:bg-gray-300 transition-colors"
           >
-            {processing ? "Converting to PDF..." : "Convert to PDF"}
+            {processing || uploading
+              ? "Converting to PDF..."
+              : "Convert to PDF"}
           </button>
         </div>
       )}

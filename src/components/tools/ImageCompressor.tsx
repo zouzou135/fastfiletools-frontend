@@ -122,10 +122,10 @@ const ImageCompressor = () => {
 
         <button
           onClick={compressImage}
-          disabled={!selectedFile || processing}
+          disabled={!selectedFile || processing || uploading}
           className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
         >
-          {processing ? "Compressing..." : "Compress Image"}
+          {processing || uploading ? "Compressing..." : "Compress Image"}
         </button>
       </div>
 
