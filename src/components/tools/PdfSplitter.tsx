@@ -179,6 +179,7 @@ const PdfSplitter = () => {
                   setStatus(null);
                   setProgressStage(null);
                   setPageRange("");
+                  setProcessingJob(false);
                   cancelUpload();
                 }}
                 className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"

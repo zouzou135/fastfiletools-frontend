@@ -65,6 +65,7 @@ const PdfToImagesConverter = () => {
       try {
         const res = await pdfService.getJob(jobId);
         const fileJobResponse: FileJobResponse = res.data;
+        console.log("fileJobResponse", fileJobResponse);
 
         setStatus(fileJobResponse.status);
         setProgressStage(fileJobResponse.progress_stage);
@@ -153,6 +154,7 @@ const PdfToImagesConverter = () => {
                   setJobId(null);
                   setStatus(null);
                   setProgressStage(null);
+                  setProcessingJob(false);
                   cancelUpload();
                 }}
                 className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
