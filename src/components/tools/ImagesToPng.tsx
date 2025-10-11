@@ -65,7 +65,7 @@ const ImagesToPng = () => {
 
       <FileUploadZone
         onFilesSelected={handleFileSelect}
-        accept="image/*, !image/jpeg, !image/jpg"
+        accept="image/*, !image/png"
         multiple={true}
         hasFiles={selectedFiles.length != 0}
       >
