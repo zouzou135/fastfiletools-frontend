@@ -91,6 +91,38 @@ export const imageService = {
       withUploadProgress(onProgress, signal)
     );
   },
+
+  convertToJpeg: (
+    files: File[],
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
+    const formData = new FormData();
+    files.forEach((file: File, index) => {
+      formData.append(`images[${index}]`, file);
+    });
+    return api.post(
+      "/image/convert-to-jpeg",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
+  },
+
+  convertToPng: (
+    files: File[],
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
+    const formData = new FormData();
+    files.forEach((file: File, index) => {
+      formData.append(`images[${index}]`, file);
+    });
+    return api.post(
+      "/image/convert-to-png",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
+  },
 };
 
 export const pdfService = {
@@ -121,6 +153,22 @@ export const pdfService = {
     });
     return api.post(
       "/pdf/merge",
+      formData,
+      withUploadProgress(onProgress, signal)
+    );
+  },
+
+  convertToImages: (
+    files: File[],
+    onProgress?: (percent: number, speed: string) => void,
+    signal?: AbortSignal
+  ) => {
+    const formData = new FormData();
+    files.forEach((file, index) => {
+      formData.append(`pdfs[${index}]`, file);
+    });
+    return api.post(
+      "/pdf/convert-to-img",
       formData,
       withUploadProgress(onProgress, signal)
     );

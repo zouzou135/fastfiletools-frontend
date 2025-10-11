@@ -32,9 +32,17 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
     setIsDragOver(false);
 
     const droppedFiles = Array.from(e.dataTransfer.files);
-    const acceptedTypes = accept
-      ?.split(",")
-      .map((type) => type.trim().toLowerCase());
+    const types =
+      accept
+        ?.split(",")
+        .map((type) => type.trim().toLowerCase())
+        .filter(Boolean) || [];
+
+    // Separate inclusion and exclusion types
+    const inclusionTypes = types.filter((type) => !type.startsWith("!"));
+    const exclusionTypes = types
+      .filter((type) => type.startsWith("!"))
+      .map((type) => type.substring(1));
 
     const acceptedFiles: File[] = [];
     const rejectedFiles: File[] = [];
@@ -43,7 +51,20 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
       const fileType = file.type.toLowerCase();
       const fileName = file.name.toLowerCase();
 
-      const isAccepted = acceptedTypes?.some((type) => {
+      // --- Exclusion Check ---
+      const isExcluded = exclusionTypes.some((type) => {
+        if (type.startsWith(".")) return fileName.endsWith(type);
+        if (type.endsWith("/*"))
+          return fileType.startsWith(type.split("/")[0] + "/");
+        return fileType === type;
+      });
+
+      if (isExcluded) {
+        rejectedFiles.push(file);
+        return; // Skip the inclusion check for excluded files
+      }
+
+      const isAccepted = inclusionTypes?.some((type) => {
         if (type.startsWith(".")) return fileName.endsWith(type);
         if (type.endsWith("/*"))
           return fileType.startsWith(type.split("/")[0] + "/");

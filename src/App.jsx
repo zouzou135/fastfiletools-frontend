@@ -7,13 +7,11 @@ import ImageTuner from "./components/tools/ImageTuner";
 import ImageToPdfConverter from "./components/tools/ImageToPdfConverter";
 import PdfMerger from "./components/tools/PdfMerger";
 import PdfSplitter from "./components/tools/PdfSplitter";
+import PdfToImagesConverter from "./components/tools/PdfToImagesConverter";
+import ImagesToJpeg from "./components/tools/ImagesToJpeg";
+import ImagesToPng from "./components/tools/ImagesToPng";
 import HomeScreen from "./components/pages/HomeScreen";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/utilities/Layout";
 
 function App() {
@@ -31,6 +29,9 @@ function App() {
             <Route path="img-to-pdf" element={<ImageToPdfConverter />} />
             <Route path="merge-pdf" element={<PdfMerger />} />
             <Route path="split-pdf" element={<PdfSplitter />} />
+            <Route path="pdf-to-img" element={<PdfToImagesConverter />} />
+            <Route path="img-to-jpeg" element={<ImagesToJpeg />} />
+            <Route path="img-to-png" element={<ImagesToPng />} />
           </Route>
 
           {/* 2. STANDALONE PAGES (Also rendered inside the top-level Layout) */}

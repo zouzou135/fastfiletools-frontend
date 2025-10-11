@@ -37,6 +37,18 @@ const ToolWrapper = () => {
             {/* This is where the specific tool component will be rendered */}
             <Outlet />
           </div>
+
+          {/* Long description below the tool UI */}
+          {currentTool?.longDescription && (
+            <div className="mt-20 prose prose-sm max-w-none text-gray-700">
+              <hr className="border-gray-200 mb-8" />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: currentTool.longDescription,
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

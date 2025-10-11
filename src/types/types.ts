@@ -56,8 +56,13 @@ export interface SplitPdfResult {
   zip: BaseJobFileResult;
 }
 
+export interface ImagesResult {
+  images: BaseJobFileResult[];
+  zip: BaseJobFileResult;
+}
+
 export interface FileJobResponse {
   status: "pending" | "processing" | "completed" | "failed";
   progress_stage: string | null;
-  result: SplitPdfResult | BaseJobFileResult | null;
+  result: SplitPdfResult | BaseJobFileResult | ImagesResult | null;
 }
