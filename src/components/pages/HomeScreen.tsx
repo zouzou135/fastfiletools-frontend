@@ -43,6 +43,48 @@ const HomeScreen = () => {
           );
         })}
       </div>
+
+      <div className="mt-20 prose prose-sm max-w-none text-gray-700 lg:mx-6">
+        <hr className="border-gray-200 mb-8" />
+        <h3 className="text-lg font-bold text-gray-800 mb-2">
+          About FastFileTools
+        </h3>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          FastFileTools provides simple, reliable utilities for images and PDFs.
+          From compressing photos to merging or splitting PDFs, our tools are
+          built for speed, clarity, and trust.
+        </p>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          All processing is handled securely on our servers to ensure
+          consistent, high-quality results across formats. Files are processed
+          only to complete your request, stored briefly for download, and
+          automatically expired after a short period. This approach allows us to
+          support complex conversions and large files while keeping the
+          experience fast and dependable.
+        </p>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          There's no signup, no dark patterns, and no tracking beyond what's
+          needed for basic functionality and reliability. Our goal is
+          straightforward: tools that work quickly, respect your data, and keep
+          the experience clean.
+        </p>
+        <ul className="mt-1 text-sm text-gray-600 leading-relaxed">
+          <li>
+            <strong>Fast:</strong> Minimal friction, quick results.
+          </li>
+          <li>
+            <strong>Privacy:</strong> Files are processed securely and deleted
+            automatically after 2 hours.
+          </li>
+          <li>
+            <strong>Transparent:</strong> Clear progress and short‑lived
+            download links.
+          </li>
+          <li>
+            <strong>Free:</strong> No account required.
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
