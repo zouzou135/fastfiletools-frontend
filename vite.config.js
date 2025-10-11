@@ -23,7 +23,7 @@ export default defineConfig({
       },
     },
     // Remove console.logs in production
-    minify: "esbuild",
+    // minify: "esbuild",
     sourcemap: true,
   },
   // Configure proxy to forward API requests to your Laravel backend
