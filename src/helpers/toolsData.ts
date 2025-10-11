@@ -38,44 +38,44 @@ export const toolCategories = [
 <p class="text-sm text-gray-600 leading-relaxed">Turn a collection of images into a single, shareable PDF in seconds. This tool is ideal for scanned documents, receipts, homework submissions, or photo albums. Simply upload your images, reorder them as needed, and generate a polished PDF instantly. Because the conversion happens locally in your browser, your files remain private and secure. No signup, no watermarks, and no hidden limits. The resulting PDF is lightweight, easy to share, and works across all devices. Whether you're a student, professional, or casual user, this tool saves you time and makes organizing images effortless.</p>
         `,
       },
-      //       {
-      //         id: "img-to-jpeg",
-      //         label: "Images To JPEG Converter",
-      //         icon: Image,
-      //         path: "/img-to-jpeg",
-      //         description: "Convert various image formats to JPEG.",
-      //         longDescription: `
-      // <h3 class="text-lg font-bold text-gray-800 mb-2">Images to JPEG - Universal compatibility</h3>
-      // <p class="text-sm text-gray-600 leading-relaxed">JPEG is the most widely supported image format, making it perfect for sharing and uploading. This converter lets you transform PNG, GIF, BMP, or WebP files into high-quality JPEGs instantly. It's especially useful when you need smaller file sizes or guaranteed compatibility with websites, apps, and email platforms. The process is fast, secure, and happens entirely in your browser. Whether you're preparing images for a blog, compressing photos for storage, or ensuring compatibility for online forms, this tool makes the conversion seamless.</p>
-      //         `,
-      //       },
-      //       {
-      //         id: "img-to-png",
-      //         label: "Images To PNG Converter",
-      //         icon: Image,
-      //         path: "/img-to-png",
-      //         description: "Convert various image formats to PNG.",
-      //         longDescription: `
-      // <h3 class="text-lg font-bold text-gray-800 mb-2">Images to PNG - Crisp graphics with transparency</h3>
-      // <p class="text-sm text-gray-600 leading-relaxed">PNG is the go-to format for logos, icons, and design assets because it supports transparency and lossless quality. This converter allows you to transform JPG, GIF, BMP, or WebP files into clean PNGs instantly. It's perfect for designers, developers, and anyone who needs sharp graphics with transparent backgrounds. The conversion is quick, private, and requires no signup. Whether you're preparing assets for a website, editing a presentation, or just cleaning up your image library, this tool ensures your files are ready to use anywhere.</p>
-      //         `,
-      //       },
+      {
+        id: "img-to-jpeg",
+        label: "Images To JPEG Converter",
+        icon: Image,
+        path: "/img-to-jpeg",
+        description: "Convert various image formats to JPEG.",
+        longDescription: `
+<h3 class="text-lg font-bold text-gray-800 mb-2">Images to JPEG - Universal compatibility</h3>
+<p class="text-sm text-gray-600 leading-relaxed">JPEG is the most widely supported image format, making it perfect for sharing and uploading. This converter lets you transform PNG, GIF, BMP, or WebP files into high-quality JPEGs instantly. It's especially useful when you need smaller file sizes or guaranteed compatibility with websites, apps, and email platforms. The process is fast, secure, and happens entirely in your browser. Whether you're preparing images for a blog, compressing photos for storage, or ensuring compatibility for online forms, this tool makes the conversion seamless.</p>
+        `,
+      },
+      {
+        id: "img-to-png",
+        label: "Images To PNG Converter",
+        icon: Image,
+        path: "/img-to-png",
+        description: "Convert various image formats to PNG.",
+        longDescription: `
+<h3 class="text-lg font-bold text-gray-800 mb-2">Images to PNG - Crisp graphics with transparency</h3>
+<p class="text-sm text-gray-600 leading-relaxed">PNG is the go-to format for logos, icons, and design assets because it supports transparency and lossless quality. This converter allows you to transform JPG, GIF, BMP, or WebP files into clean PNGs instantly. It's perfect for designers, developers, and anyone who needs sharp graphics with transparent backgrounds. The conversion is quick, private, and requires no signup. Whether you're preparing assets for a website, editing a presentation, or just cleaning up your image library, this tool ensures your files are ready to use anywhere.</p>
+        `,
+      },
     ],
   },
   {
     label: "PDF Tools",
     tools: [
-      //       {
-      //         id: "pdf-to-img",
-      //         label: "PDF To Images Converter",
-      //         icon: Image,
-      //         path: "/pdf-to-img",
-      //         description: "Extract pages from a PDF and convert them to images.",
-      //         longDescription: `
-      // <h3 class="text-lg font-bold text-gray-800 mb-2">PDF to Images - Extract pages as high-quality images</h3>
-      // <p class="text-sm text-gray-600 leading-relaxed">This tool converts each page of your PDF into a separate image (JPG or PNG). It's useful for sharing slides, posting documents online, or extracting graphics from reports. You can download all pages at once or just the ones you need. Everything is processed securely in your browser, so your files remain private. Whether you're a student sharing notes, a professional preparing slides, or just someone who needs a quick image from a PDF, this tool makes it simple and fast.</p>
-      //         `,
-      //       },
+      {
+        id: "pdf-to-img",
+        label: "PDF To Images Converter",
+        icon: Image,
+        path: "/pdf-to-img",
+        description: "Extract pages from a PDF and convert them to images.",
+        longDescription: `
+<h3 class="text-lg font-bold text-gray-800 mb-2">PDF to Images - Extract pages as high-quality images</h3>
+<p class="text-sm text-gray-600 leading-relaxed">This tool converts each page of your PDF into a separate image (JPG or PNG). It's useful for sharing slides, posting documents online, or extracting graphics from reports. You can download all pages at once or just the ones you need. Everything is processed securely in your browser, so your files remain private. Whether you're a student sharing notes, a professional preparing slides, or just someone who needs a quick image from a PDF, this tool makes it simple and fast.</p>
+        `,
+      },
       {
         id: "split-pdf",
         label: "Split PDF",
