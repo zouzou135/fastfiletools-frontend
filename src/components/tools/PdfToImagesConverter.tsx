@@ -198,6 +198,7 @@ const PdfToImagesConverter = () => {
                 key={index}
                 className="flex items-center justify-between bg-white p-3 rounded"
               >
+                <span className="text-sm">{image.filename}</span>
                 <a
                   href={image.download_url}
                   download={image.filename}
