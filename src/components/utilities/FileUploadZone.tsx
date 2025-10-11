@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { FileUploadZoneProps } from "../../types/types";
 import { Upload } from "lucide-react";
+import { notifications } from "@mantine/notifications";
 
 const FileUploadZone: React.FC<FileUploadZoneProps> = ({
   onFilesSelected,
@@ -77,17 +78,79 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({
 
     setHasRejectedFiles(rejectedFiles.length > 0);
     onFilesSelected(acceptedFiles);
+
+    if (rejectedFiles.length > 0) {
+      notifications.show({
+        title: "Invalid file type",
+        message: `One or more files were rejected because of their type: ${rejectedFiles
+          .map((f) => f.name)
+          .join(", ")}`,
+        color: "red",
+      });
+    }
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    onFilesSelected(files);
 
-    // CRITICAL FIX: Reset the input's value to an empty string.
-    // This allows the user to select the same file again later.
-    if (e.target) {
-      e.target.value = "";
+    const types =
+      accept
+        ?.split(",")
+        .map((type) => type.trim().toLowerCase())
+        .filter(Boolean) || [];
+
+    const inclusionTypes = types.filter((type) => !type.startsWith("!"));
+    const exclusionTypes = types
+      .filter((type) => type.startsWith("!"))
+      .map((type) => type.substring(1));
+
+    const acceptedFiles: File[] = [];
+    const rejectedFiles: File[] = [];
+
+    files.forEach((file) => {
+      const fileType = file.type.toLowerCase();
+      const fileName = file.name.toLowerCase();
+
+      const isExcluded = exclusionTypes.some((type) => {
+        if (type.startsWith(".")) return fileName.endsWith(type);
+        if (type.endsWith("/*"))
+          return fileType.startsWith(type.split("/")[0] + "/");
+        return fileType === type;
+      });
+
+      if (isExcluded) {
+        rejectedFiles.push(file);
+        return;
+      }
+
+      const isAccepted =
+        inclusionTypes.length === 0 ||
+        inclusionTypes.some((type) => {
+          if (type.startsWith(".")) return fileName.endsWith(type);
+          if (type.endsWith("/*"))
+            return fileType.startsWith(type.split("/")[0] + "/");
+          return fileType === type;
+        });
+
+      if (isAccepted) acceptedFiles.push(file);
+      else rejectedFiles.push(file);
+    });
+
+    setHasRejectedFiles(rejectedFiles.length > 0);
+    onFilesSelected(acceptedFiles);
+
+    if (rejectedFiles.length > 0) {
+      notifications.show({
+        title: "Invalid file type",
+        message: `One or more files were rejected because of their type: ${rejectedFiles
+          .map((f) => f.name)
+          .join(", ")}`,
+        color: "red",
+      });
     }
+
+    // Reset input so same file can be re‑selected
+    if (e.target) e.target.value = "";
   };
 
   const dropZoneClass = `border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 ${
