@@ -106,13 +106,6 @@ const PdfMerger = () => {
 
   return (
     <div className="space-y-6">
-      <Helmet>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9323073702818036"
-          crossOrigin="anonymous"
-        ></script>
-      </Helmet>
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
         <Merge className="text-indigo-600" />
         PDF Merger
