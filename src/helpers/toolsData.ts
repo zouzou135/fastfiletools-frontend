@@ -21,7 +21,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">How We Shrink Your Files (The Magic Behind the Slider)</h4>
     <p class="text-base leading-relaxed">
-        We handle the technical stuff so you don't have to. When you compress an image, we use clever algorithms to identify and remove the redundant data that your eye won't even miss—that's called <strong>lossy compression</strong> (mainly for JPEGs) and <strong>lossless compression</strong> (for PNGs and GIFs). This process is what results in massive file size reductions, making your photos web-ready.
+        We handle the technical stuff so you don't have to. When you compress an image, we use clever algorithms to identify and remove the redundant data that your eye won't even miss that's called <strong>lossy compression</strong> (mainly for JPEGs) and <strong>lossless compression</strong> (for PNGs and GIFs). This process is what results in massive file size reductions, making your photos web-ready.
     </p>
     <p class="text-base leading-relaxed">
         The <strong>Quality Slider</strong> is your best friend here. Want maximum savings? Push it lower. Need the absolute best quality possible? Keep it high. This control lets you dictate the perfect ratio for your specific needs, whether you're optimizing for speed or display quality.
@@ -42,7 +42,7 @@ export const toolCategories = [
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Quick Guide: Compress Your Image in Seconds</h4>
     <ol class="list-decimal list-inside ml-4 space-y-2">
         <li><strong>Drop It:</strong> Drag your image file (JPEG, PNG, GIF, or WebP) into the upload zone, or click to select the file from your computer.</li>
-        <li><strong>Slide & Decide:</strong> Adjust the Quality Slider to choose your desired compression level. We suggest starting around <strong>85%</strong>—you'll be surprised how much size you save with minimal quality loss!</li>
+        <li><strong>Slide & Decide:</strong> Adjust the Quality Slider to choose your desired compression level. We suggest starting around <strong>85%</strong> you'll be surprised how much size you save with minimal quality loss!</li>
         <li><strong>Hit Compress:</strong> Click the button, and watch the magic happen instantly.</li>
         <li><strong>Download:</strong> Grab your newly optimized, lightning-fast image file and see the size comparison!</li>
     </ol>
@@ -95,7 +95,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">3. Seamless Format Conversion</h4>
     <p class="text-base leading-relaxed">
-        Sometimes you have a PNG, but the platform you're uploading to only accepts JPG. Our tuner acts as a quick converter, allowing you to instantly switch between popular formats like <strong>JPG, PNG, and WebP</strong>. This is essential for compatibility and ensuring you're using the right format—PNG for logos and transparency, JPG for photos, and WebP for ultimate web efficiency.
+        Sometimes you have a PNG, but the platform you're uploading to only accepts JPG. Our tuner acts as a quick converter, allowing you to instantly switch between popular formats like <strong>JPG, PNG, and WebP</strong>. This is essential for compatibility and ensuring you're using the right format PNG for logos and transparency, JPG for photos, and WebP for ultimate web efficiency.
     </p>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Your Data Stays Private. Always. (Secure Server Processing)</h4>
@@ -123,7 +123,7 @@ export const toolCategories = [
 
 <div class="space-y-6 text-gray-700">
     <p class="text-base leading-relaxed">
-        Dealing with a dozen scattered image files—scans, screenshots, photos—is a nightmare when it’s time to share them. Our <strong>Images to PDF Converter</strong> solves this instantly by combining them all into one clean, professional, and universally accessible PDF document. Whether you're compiling receipts for a business trip, submitting a multi-page homework assignment, or creating a cohesive digital photo album, this tool streamlines your workflow.
+        Dealing with a dozen scattered image files scans, screenshots, photos is a nightmare when it's time to share them. Our <strong>Images to PDF Converter</strong> solves this instantly by combining them all into one clean, professional, and universally accessible PDF document. Whether you're compiling receipts for a business trip, submitting a multi-page homework assignment, or creating a cohesive digital photo album, this tool streamlines your workflow.
     </p>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Why Convert Your Images into a PDF?</h4>
@@ -180,7 +180,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Understanding the JPEG Advantage: Why Lossy is Good</h4>
     <p class="text-base leading-relaxed">
-        When you convert to JPEG, you're using <strong>lossy compression</strong>. Don't let the name scare you—it's incredibly smart! JPEG compression intelligently removes the parts of the image data that your eye won't notice, leading to a massive reduction in file size. This is a game-changer, especially for digital photography, where images have complex color schemes and gradients.
+        When you convert to JPEG, you're using <strong>lossy compression</strong>. Don't let the name scare you it's incredibly smart! JPEG compression intelligently removes the parts of the image data that your eye won't notice, leading to a massive reduction in file size. This is a game-changer, especially for digital photography, where images have complex color schemes and gradients.
     </p>
     <p class="text-base leading-relaxed">
         <strong>The payoff?</strong> Your converted images will:
@@ -244,7 +244,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">The Power of True Transparency</h4>
     <p class="text-base leading-relaxed">
-        If you need a logo or icon to sit neatly on a colored background or a photo without a distracting white box, you need PNG. Its support for the <strong>alpha channel</strong> allows parts of the image to be fully transparent or semi-transparent, enabling seamless integration into any web design or document layout. Trying to achieve this with a JPEG is impossible—JPEG forces every pixel to have a color.
+        If you need a logo or icon to sit neatly on a colored background or a photo without a distracting white box, you need PNG. Its support for the <strong>alpha channel</strong> allows parts of the image to be fully transparent or semi-transparent, enabling seamless integration into any web design or document layout. Trying to achieve this with a JPEG is impossible JPEG forces every pixel to have a color.
     </p>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Who Needs PNG Conversion?</h4>
@@ -330,7 +330,7 @@ export const toolCategories = [
 
 <div class="space-y-6 text-gray-700">
     <p class="text-base leading-relaxed">
-        Have you ever struggled to email a massive report, or needed to share just one section of a long contract without exposing the rest of the document? Our <strong>Split PDF</strong> tool is the smart, fast solution. It lets you slice large PDF files into smaller, more manageable documents, giving you complete control over which pages you keep and which pages you share. Stop sending huge files—extract only the pages you actually need!
+        Have you ever struggled to email a massive report, or needed to share just one section of a long contract without exposing the rest of the document? Our <strong>Split PDF</strong> tool is the smart, fast solution. It lets you slice large PDF files into smaller, more manageable documents, giving you complete control over which pages you keep and which pages you share. Stop sending huge files extract only the pages you actually need!
     </p>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Why You Need to Split Your PDFs</h4>
