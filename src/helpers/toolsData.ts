@@ -414,3 +414,7 @@ export const toolCategories = [
     ],
   },
 ];
+
+export const toolPaths = toolCategories.flatMap((cat) =>
+  cat.tools.map((tool) => tool.path)
+);
