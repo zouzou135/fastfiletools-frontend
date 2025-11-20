@@ -91,8 +91,25 @@ const PdfMerger = () => {
     return () => clearInterval(interval);
   }, [jobId]);
 
+  const handleClearResultsIfEmpty = (newFiles: File[]) => {
+    // If the list of files is now empty, reset the result state
+    if (newFiles.length === 0) {
+      setResult(null);
+      setJobId(null);
+      setStatus(null);
+      setProgressStage(null);
+      setProcessingJob(false);
+      cancelUpload();
+    }
+  };
+
   const removeFile = (index: number) => {
-    setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
+    setSelectedFiles((prev) => {
+      const newFiles = prev.filter((_, i) => i !== index);
+      // Call the check function here before returning the new state
+      handleClearResultsIfEmpty(newFiles);
+      return newFiles;
+    });
   };
 
   const moveFile = (fromIndex: number, toIndex: number) => {

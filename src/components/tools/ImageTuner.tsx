@@ -50,6 +50,12 @@ const ImageTuner: React.FC = () => {
     setSettings({ brightness: 0, contrast: 0, saturation: 0 });
   };
 
+  const handleClear = () => {
+    setSelectedFile(null);
+    setResult(null);
+    cancelUpload();
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
@@ -67,7 +73,7 @@ const ImageTuner: React.FC = () => {
             file={selectedFile}
             index={0}
             lastIndex={0}
-            onRemove={() => setSelectedFile(null)}
+            onRemove={() => handleClear()}
           />
         ) : (
           <>
@@ -112,10 +118,8 @@ const ImageTuner: React.FC = () => {
                 <div className="flex justify-end">
                   <button
                     onClick={() => {
-                      setSelectedFile(null);
+                      handleClear();
                       resetSettings();
-                      setResult(null);
-                      cancelUpload();
                     }}
                     className="text-sm text-white bg-red-600 hover:bg-red-700 px-2 rounded-md"
                   >
