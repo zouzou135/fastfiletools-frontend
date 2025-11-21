@@ -169,7 +169,7 @@ export const toolCategories = [
     <ul class="list-disc list-inside ml-4 space-y-2">
         <li><strong>Reorder Pages:</strong> Simply drag and drop the file thumbnails (or use the provided controls) to ensure your images appear in the correct sequence. This is vital for multi-page reports or correctly ordering scanned documents.</li>
         <li><strong>Combine Multiple Files:</strong> You can upload up to 20 images at once, which the tool handles efficiently, generating a single, cohesive PDF document.</li>
-        <li><strong>No Long-Term Storage, Full Privacy:</strong> Your files are uploaded to our secure server for conversion, which is necessary to generate a high-quality PDF. We commit to immediately deleting your files and the converted PDF from our server shortly after the process is complete (usually within two hours). Your private files are never stored long-term.</li>
+        <li><strong>No Long-Term Storage, Full Privacy:</strong> Your files are uploaded to our secure server for conversion, which is necessary to generate a high-quality PDF. We commit to deleting your files and the converted PDF from our server shortly after the process is complete (usually within two hours). Your private files are never stored long-term.</li>
     </ul>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">How to Create Your Perfect PDF in Three Simple Steps</h4>
@@ -226,7 +226,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Converting Batches with Total Privacy</h4>
     <p class="text-base leading-relaxed">
-        Our converter is designed to handle multiple files at once. You can upload a batch of PNGs and GIFs and convert them all to JPEGs in a single operation, greatly speeding up your workflow. The conversion happens quickly on our secure, fast server. Your file data is never stored long-term and is deleted immediately after the conversion is complete, guaranteeing your privacy throughout the process.
+        Our converter is designed to handle multiple files at once. You can upload a batch of PNGs and GIFs and convert them all to JPEGs in a single operation, greatly speeding up your workflow. The conversion happens quickly on our secure, fast server. Your file data is never stored long-term and is deleted shortly after the conversion is complete, guaranteeing your privacy throughout the process.
     </p>
     
     <h4 class="text-xl font-semibold text-gray-800 mt-6">How to Convert to JPEG in Three Simple Steps</h4>
@@ -254,7 +254,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Why PNG is Superior for Graphics (Lossless Explained)</h4>
     <p class="text-base leading-relaxed">
-        PNG files use lossless compression. This is the opposite of JPEG’s approach. Lossless means that when the file is saved, no original visual data is thrown away. The quality you see on your screen is the quality that is saved, every single time, making it the perfect archive or working format for graphics.
+        PNG files use lossless compression. This is the opposite of JPEG's approach. Lossless means that when the file is saved, no original visual data is thrown away. The quality you see on your screen is the quality that is saved, every single time, making it the perfect archive or working format for graphics.
     </p>
     <p class="text-base leading-relaxed">
         Why should you convert to a lossless PNG?
@@ -283,7 +283,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Quick, Secure, and Batch Conversion Process</h4>
     <p class="text-base leading-relaxed">
-        Our tool is built for speed and privacy. You can upload multiple files at once, and they will be converted simultaneously. This is highly efficient if you need to switch an entire folder of graphics to PNG. The conversion process is run on our secure server using encrypted connections. Critically, we do not store files long-term. All uploaded source images and the converted PNGs are deleted from our server immediately after the process is completed, guaranteeing your privacy. We offer the convenience of batch downloading your new PNGs as a single ZIP file.
+        Our tool is built for speed and privacy. You can upload multiple files at once, and they will be converted simultaneously. This is highly efficient if you need to switch an entire folder of graphics to PNG. The conversion process is run on our secure server using encrypted connections. Critically, we do not store files long-term. All uploaded source images and the converted PNGs are deleted from our server shortly after the process is completed, guaranteeing your privacy. We offer the convenience of batch downloading your new PNGs as a single ZIP file.
     </p>
     
     <h4 class="text-xl font-semibold text-gray-800 mt-6">How to Convert to PNG in Three Simple Steps</h4>
@@ -342,7 +342,7 @@ export const toolCategories = [
     
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Your Files Are Private. The Process is Fast. (Secure Server Processing)</h4>
     <p class="text-base leading-relaxed">
-        To ensure accurate extraction and high-quality results, your PDF is securely uploaded to our server for processing. We prioritize your privacy above all else: all files are handled using encrypted connections, and both the original PDF and the resulting image files are permanently deleted from our server immediately after the conversion is complete. Your confidential reports and documents are never stored long-term, guaranteeing your data's security.
+        To ensure accurate extraction and high-quality results, your PDF is securely uploaded to our server for processing. We prioritize your privacy above all else: all files are handled using encrypted connections, and both the original PDF and the resulting image files are permanently deleted from our server shortly after the conversion is complete. Your confidential reports and documents are never stored long-term, guaranteeing your data's security.
     </p>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Quick Guide: Extract Images from Your PDF in Three Steps</h4>
@@ -392,7 +392,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">The FastFileTools Promise: Secure Server Processing</h4>
     <p class="text-base leading-relaxed">
-        Handling contracts and reports requires trust. To ensure accurate splitting, your PDF is securely uploaded to our powerful server. We guarantee your privacy: all processing is done over an encrypted connection, and your files are permanently deleted from our server immediately after the task is complete. We do not store your original documents or the resulting split files long-term, ensuring your sensitive information remains private.
+        Handling contracts and reports requires trust. To ensure accurate splitting, your PDF is securely uploaded to our powerful server. We guarantee your privacy: all processing is done over an encrypted connection, and your files are permanently deleted from our server shortly after the task is complete. We do not store your original documents or the resulting split files long-term, ensuring your sensitive information remains private.
     </p>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Maintaining Document Integrity</h4>
@@ -442,7 +442,7 @@ export const toolCategories = [
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Safety Guaranteed: Secure Server Processing</h4>
     <p class="text-base leading-relaxed">
-        Confidential contracts and business documents should never be handled carelessly. To ensure a perfect merge of your documents, your files are securely uploaded to our powerful server. We prioritize your privacy: all merging is done over an encrypted connection, and your files are **permanently deleted from our server** immediately after the unified document is ready for download. We do not store your original documents or the resulting merged file long-term.
+        Confidential contracts and business documents should never be handled carelessly. To ensure a perfect merge of your documents, your files are securely uploaded to our powerful server. We prioritize your privacy: all merging is done over an encrypted connection, and your files are permanently deleted from our server shortly after the unified document is ready for download. We do not store your original documents or the resulting merged file long-term.
     </p>
 
     <h4 class="text-xl font-semibold text-gray-800 mt-6">Maintaining File Integrity During Merging</h4>
