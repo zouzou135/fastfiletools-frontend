@@ -4,6 +4,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import ToolList from "./ToolList";
 import { toolPaths } from "../../helpers/toolsData";
+import { Helmet } from "react-helmet-async";
 
 export default function Layout() {
   const [opened, { toggle }] = useDisclosure();
@@ -28,6 +29,15 @@ export default function Layout() {
       }
       className="bg-gradient-to-br from-blue-50 via-white to-purple-50"
     >
+      {isToolPage && (
+        <Helmet>
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9323073702818036"
+            crossOrigin="anonymous"
+          ></script>
+        </Helmet>
+      )}
       {/* Header */}
       <AppShell.Header className="bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <Group justify="space-between" px="md" h="100%">
