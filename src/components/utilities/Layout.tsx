@@ -29,7 +29,7 @@ export default function Layout() {
       }
       className="bg-gradient-to-br from-blue-50 via-white to-purple-50"
     >
-      {isToolPage && (
+      {/* {isToolPage && (
         <Helmet>
           <script
             async
@@ -37,7 +37,7 @@ export default function Layout() {
             crossOrigin="anonymous"
           ></script>
         </Helmet>
-      )}
+      )} */}
       {/* Header */}
       <AppShell.Header className="bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <Group justify="space-between" px="md" h="100%">
