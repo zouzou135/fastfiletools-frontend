@@ -15,21 +15,6 @@ export default function Layout() {
   const isHome = location.pathname === "/";
   const isMetaPage = !isToolPage && !isHome;
 
-  useEffect(() => {
-    if (isToolPage) {
-      const s = document.createElement("script");
-      s.dataset.zone = "10277154";
-      s.src = "https://nap5k.com/tag.min.js";
-      s.async = true;
-      document.body.appendChild(s);
-
-      return () => {
-        // cleanup if you navigate away
-        document.body.removeChild(s);
-      };
-    }
-  }, [isToolPage]);
-
   return (
     <AppShell
       padding={0}
@@ -54,6 +39,23 @@ export default function Layout() {
           ></script>
         </Helmet>
       )} */}
+
+      {isToolPage && (
+        <Helmet>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(s){
+          s.dataset.zone='10277154';
+          s.src='https://nap5k.com/tag.min.js';
+        })([document.documentElement, document.body]
+          .filter(Boolean)
+          .pop()
+          .appendChild(document.createElement('script')));`,
+            }}
+          />
+        </Helmet>
+      )}
+
       {/* Header */}
       <AppShell.Header className="bg-gradient-to-br from-blue-50 via-white to-purple-50">
         <Group justify="space-between" px="md" h="100%">
