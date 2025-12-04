@@ -20,7 +20,13 @@ export default function Layout() {
       const s = document.createElement("script");
       s.dataset.zone = "10277154";
       s.src = "https://nap5k.com/tag.min.js";
+      s.async = true;
       document.body.appendChild(s);
+
+      return () => {
+        // cleanup if you navigate away
+        document.body.removeChild(s);
+      };
     }
   }, [isToolPage]);
 
