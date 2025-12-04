@@ -16,29 +16,6 @@ export default function Layout() {
   const isHome = location.pathname === "/";
   const isMetaPage = !isToolPage && !isHome;
 
-  // Inside your component:
-  useEffect(() => {
-    if (isToolPage) {
-      const script = document.createElement("script");
-      script.dataset.zone = "10277154";
-      script.src = "https://nap5k.com/tag.min.js";
-      script.async = true;
-
-      const target = [document.documentElement, document.body]
-        .filter(Boolean)
-        .pop();
-
-      target?.appendChild(script);
-
-      // Cleanup function to remove script when component unmounts
-      return () => {
-        if (target?.contains(script)) {
-          target.removeChild(script);
-        }
-      };
-    }
-  }, [isToolPage]);
-
   return (
     <AppShell
       padding={0}
