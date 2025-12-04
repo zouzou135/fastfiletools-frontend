@@ -5,6 +5,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import ToolList from "./ToolList";
 import { toolPaths } from "../../helpers/toolsData";
 import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 
 export default function Layout() {
   const [opened, { toggle }] = useDisclosure();
@@ -13,6 +14,15 @@ export default function Layout() {
   const isToolPage = toolPaths.includes(location.pathname);
   const isHome = location.pathname === "/";
   const isMetaPage = !isToolPage && !isHome;
+
+  useEffect(() => {
+    if (isToolPage) {
+      const s = document.createElement("script");
+      s.dataset.zone = "10277154";
+      s.src = "https://nap5k.com/tag.min.js";
+      document.body.appendChild(s);
+    }
+  }, [isToolPage]);
 
   return (
     <AppShell
