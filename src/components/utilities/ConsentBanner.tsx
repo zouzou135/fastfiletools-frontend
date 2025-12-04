@@ -5,7 +5,13 @@ export default function ConsentBanner() {
   const [consentGiven, setConsentGiven] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Example: check region via a free GeoIP API or CDN header
+    // Load saved consent from localStorage
+    const savedConsent = localStorage.getItem("adConsent");
+    if (savedConsent !== null) {
+      setConsentGiven(savedConsent === "true");
+    }
+
+    // Region check
     async function checkRegion() {
       try {
         const res = await fetch("https://ipapi.co/json/");
@@ -50,6 +56,11 @@ export default function ConsentBanner() {
     checkRegion();
   }, []);
 
+  const handleConsent = (value: boolean) => {
+    setConsentGiven(value);
+    localStorage.setItem("adConsent", value.toString());
+  };
+
   if (!showBanner || consentGiven !== null) return null;
 
   return (
@@ -62,13 +73,13 @@ export default function ConsentBanner() {
       <div className="mt-2 flex gap-2">
         <button
           className="bg-blue-600 text-white px-3 py-1 rounded"
-          onClick={() => setConsentGiven(true)}
+          onClick={() => handleConsent(true)}
         >
           Accept
         </button>
         <button
           className="bg-gray-300 px-3 py-1 rounded"
-          onClick={() => setConsentGiven(false)}
+          onClick={() => handleConsent(false)}
         >
           Reject
         </button>
