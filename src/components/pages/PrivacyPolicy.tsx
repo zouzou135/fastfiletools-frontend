@@ -27,10 +27,12 @@ const PrivacyPolicy = () => {
           Cookies and Advertising
         </h2>
         <p className="mb-4 text-gray-700">
-          We do not currently use cookies or display ads on our site. If we
-          integrate Google AdSense or other advertising services in the future,
-          we will update this policy and display a cookie consent banner where
-          required by law.
+          We display ads on FastFileTools through third-party ad networks such
+          as Monetag. These networks may use cookies, local storage, or similar
+          technologies to deliver relevant advertising and measure performance.
+          Even if you decline advertising cookies, ads may still appear on
+          FastFileTools. These ads are provided by third-party ad networks, and
+          we do not control whether they are personalized.
         </p>
 
         <h2 className="text-xl font-semibold mt-6 mb-2 text-gray-800">

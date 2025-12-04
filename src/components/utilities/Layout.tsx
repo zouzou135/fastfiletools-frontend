@@ -6,6 +6,7 @@ import ToolList from "./ToolList";
 import { toolPaths } from "../../helpers/toolsData";
 import { Helmet } from "react-helmet-async";
 import { useEffect } from "react";
+import ConsentBanner from "./ConsentBanner";
 
 export default function Layout() {
   const [opened, { toggle }] = useDisclosure();
@@ -14,6 +15,29 @@ export default function Layout() {
   const isToolPage = toolPaths.includes(location.pathname);
   const isHome = location.pathname === "/";
   const isMetaPage = !isToolPage && !isHome;
+
+  // Inside your component:
+  useEffect(() => {
+    if (isToolPage) {
+      const script = document.createElement("script");
+      script.dataset.zone = "10277154";
+      script.src = "https://nap5k.com/tag.min.js";
+      script.async = true;
+
+      const target = [document.documentElement, document.body]
+        .filter(Boolean)
+        .pop();
+
+      target?.appendChild(script);
+
+      // Cleanup function to remove script when component unmounts
+      return () => {
+        if (target?.contains(script)) {
+          target.removeChild(script);
+        }
+      };
+    }
+  }, [isToolPage]);
 
   return (
     <AppShell
@@ -39,22 +63,6 @@ export default function Layout() {
           ></script>
         </Helmet>
       )} */}
-
-      {isToolPage && (
-        <Helmet>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(s){
-          s.dataset.zone='10277154';
-          s.src='https://nap5k.com/tag.min.js';
-        })([document.documentElement, document.body]
-          .filter(Boolean)
-          .pop()
-          .appendChild(document.createElement('script')));`,
-            }}
-          />
-        </Helmet>
-      )}
 
       {/* Header */}
       <AppShell.Header className="bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -111,6 +119,7 @@ export default function Layout() {
             Privacy Policy
           </Link>
         </footer>
+        <ConsentBanner />
       </AppShell.Main>
     </AppShell>
   );
