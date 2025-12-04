@@ -53,7 +53,7 @@ export default function ConsentBanner() {
   if (!showBanner || consentGiven !== null) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 text-sm z-50">
+    <div className="fixed bottom-0 bg-white shadow-lg p-4 text-sm z-50">
       <p>
         We display ads through third-party ad networks. These may use cookies or
         similar technologies. You can accept or reject advertising cookies. Ads
